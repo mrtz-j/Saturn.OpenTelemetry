@@ -1,0 +1,5 @@
+result
+.direnv/
+out/
+**/bin
+**/obj
