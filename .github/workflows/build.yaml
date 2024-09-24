@@ -80,7 +80,7 @@ jobs:
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
       - name: Run Nixfmt
-        run: nix develop --command nixfmt --check .
+        run: nix develop -f . default --command nixfmt --check .
 
   nuget-pack:
     runs-on: ubuntu-latest
