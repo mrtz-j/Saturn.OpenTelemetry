@@ -19,17 +19,17 @@
 /// The appropriate span is then tracked, and so you can add tags and events to the
 /// current span implicitly by using:
 ///
-///   Telemetry.addTag "some tag" "some value"
-///   Telemetry.addtags ["tag1", "value" :> obj; "tag2", 2 :> obj]
-///   Telemetry.addEvent "some event name" []
+///   `Telemetry.addTag "some tag" "some value"`
+///   `Telemetry.addtags ["tag1", "value" :> obj; "tag2", 2 :> obj]`
+///   `Telemetry.addEvent "some event name" []`
 ///
 /// The type of the value is `obj`, so anything is allowed.
 ///
+/// </summary>
 /// <remarks>
-/// NOTE: Otel names are confusing in .NET. Here is a good summary.
+/// OpenTelemetry names are confusing in .NET. Here is a good summary.
 /// https://github.com/open-telemetry/opentelemetry-dotnet/issues/947
 /// </remarks>
-/// </summary>
 module Telemetry
 
 open System
@@ -38,7 +38,6 @@ open System.Text
 open System.Collections.Generic
 open System.Diagnostics
 open Microsoft.AspNetCore.Http
-open OpenTelemetry
 open OpenTelemetry.Trace
 
 type Metadata = (string * obj) list
@@ -213,17 +212,6 @@ let serviceTags: Metadata =
     List.map (fun (k, v) -> (k, v :> obj)) tags
 
 let addServiceTags (span: Span.T) : unit = Span.addTags serviceTags span
-
-/// <summary>
-/// Tags for Otel DI's
-/// </summary>
-let tags =
-    dict [
-        "service.name", box "appId"
-        "service.version", box "version"
-        // "deployment.environment", string Settings.Environment
-        "host.name", box Environment.MachineName
-    ]
 
 let init (serviceName: string) : unit =
     // Not enabled by default https://jimmybogard.com/building-end-to-end-diagnostics-and-tracing-a-primer-trace-context/

@@ -1,7 +1,6 @@
 namespace Saturn
 
 open Microsoft.Extensions.DependencyInjection
-open Microsoft.Extensions.Hosting
 open Microsoft.AspNetCore.Builder
 
 /// <summary> Initial module </summary>
@@ -10,19 +9,34 @@ module OpenTelemetry =
     open Saturn
     open System
     open OpenTelemetry.Metrics
-    open OpenTelemetry.Resources
+    open OpenTelemetry.Logs
     open OpenTelemetry.Trace
+    open OpenTelemetry.Resources
+
+    type OtelConfig = {
+        AppId: string
+        Namespace: string
+        Version: string
+        Endpoint: string
+    }
 
     type ApplicationBuilder with
         [<CustomOperation("use_otel")>]
-        member this.UseOtel (state) =
+        member this.UseOtel (state, config: OtelConfig) =
             let middleware (app: IApplicationBuilder) = app
             let service (service: IServiceCollection) =
                 service
                     .AddOpenTelemetry() // Tracing and Metrics
                     .ConfigureResource(fun res ->
-                        res.AddService("appId", "namespace", "version") |> ignore
-                        res.AddAttributes(Telemetry.tags) |> ignore
+                        res.AddService(config.AppId, config.Namespace, config.Version) |> ignore
+                        res.AddAttributes(
+                            dict [
+                                "service.name", box config.AppId
+                                "service.version", box config.Version
+                                "host.name", box Environment.MachineName
+                            ]
+                        )
+                        |> ignore
                     )
                     .WithTracing(fun tra ->
                         tra
@@ -39,27 +53,37 @@ module OpenTelemetry =
                                 opt.RecordException <- true
                                 ()
                             )
-                            .AddSource("appId")
+                            .AddSource(config.AppId)
                             .SetResourceBuilder(
                                 ResourceBuilder
                                     .CreateDefault()
-                                    .AddService("appId", "namespace", "version")
+                                    .AddService(config.AppId, config.Namespace, config.Version)
                             )
-                            .AddOtlpExporter(fun opt -> opt.Endpoint <- new Uri("endpoint"))
+                            .AddOtlpExporter(fun opt -> opt.Endpoint <- new Uri(config.Endpoint))
+                        |> ignore
+                    )
+                    .WithLogging(fun log ->
+                        log
+                            .SetResourceBuilder(
+                                ResourceBuilder
+                                    .CreateDefault()
+                                    .AddService(config.AppId, config.Namespace, config.Version)
+                            )
+                            .AddOtlpExporter(fun opt -> opt.Endpoint <- new Uri(config.Endpoint))
                         |> ignore
                     )
                     .WithMetrics(fun met ->
                         met
+                            .SetResourceBuilder(
+                                ResourceBuilder
+                                    .CreateDefault()
+                                    .AddService(config.AppId, config.Namespace, config.Version)
+                            )
                             .AddAspNetCoreInstrumentation()
                             .AddHttpClientInstrumentation()
                             .AddRuntimeInstrumentation()
                             .AddProcessInstrumentation()
-                            .SetResourceBuilder(
-                                ResourceBuilder
-                                    .CreateDefault()
-                                    .AddService("appId", "namespace", "version")
-                            )
-                            .AddOtlpExporter(fun opt -> opt.Endpoint <- new Uri("endpoint"))
+                            .AddOtlpExporter(fun opt -> opt.Endpoint <- new Uri(config.Endpoint))
                         |> ignore
                     )
                 |> ignore

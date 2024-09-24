@@ -8,14 +8,12 @@ let
   dotnet-runtime = pkgs.dotnetCorePackages.runtime_8_0;
   version = "0.0.1";
   shell = pkgs.mkShell {
-    nativeBuildInputs = [
-      dotnet-sdk
-      pkgs.fantomas
-      pkgs.netcoredbg
-      pkgs.fsautocomplete
+    nativeBuildInputs = with pkgs; [
+      dotnet-sdk_8
+      fantomas
+      netcoredbg
+      fsautocomplete
     ];
-
-    DOTNET_ROOT = "${dotnet-sdk}";
   };
   pkgs = import sources.nixpkgs {
     inherit system;
