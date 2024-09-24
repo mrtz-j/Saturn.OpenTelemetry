@@ -11,8 +11,8 @@ let
     nativeBuildInputs = with pkgs; [
       dotnet-sdk_8
       fantomas
-      netcoredbg
       fsautocomplete
+      nixfmt-rfc-style
     ];
   };
   pkgs = import sources.nixpkgs {
@@ -23,6 +23,7 @@ let
 in
 {
   inherit shell;
+  fantomas = pkgs.fantomas;
   default = pkgs.callPackage ./deps/saturn-opentelemetry.nix {
     inherit
       pname

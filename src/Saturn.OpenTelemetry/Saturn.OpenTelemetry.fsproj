@@ -4,28 +4,27 @@
     <OutputType>library</OutputType>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <Authors>Moritz Jorg</Authors>
-    <Copyright>Copyright (c) Moritz Jorg 2024</Copyright>
-    <Description>For the easy construction of Pratt parsers.</Description>
+    <Authors>Moritz Jörg</Authors>
+    <Copyright>Copyright (c) Moritz Jörg 2024</Copyright>
+    <Description>For the easy open telemetry instrumentation of saturn apps </Description>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/mrtz-j/saturn.opentelemetry</RepositoryUrl>
+    <RepositoryUrl>https://github.com/mrtz-j/Saturn.OpenTelemetry</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>fsharp;</PackageTags>
+    <PackageId>Saturn.OpenTelemetry</PackageId>
     <WarnOn>FS3559</WarnOn>
-    <PackageId>WoofWare.PrattParser</PackageId>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Telemetry.fs" />
     <Compile Include="Saturn.OpenTelemetry.fs" />
-    <None Include="..\README.md">
+    <None Include="../../README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="OpenTelemetry" Version="1.9.0" />
-    <PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.9.0" />
     <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.9.0" />
     <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.9.0" />
     <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.9.0" />

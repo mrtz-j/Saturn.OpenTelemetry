@@ -4,6 +4,7 @@ open Giraffe
 open Fable.Remoting.Server
 open Fable.Remoting.Giraffe
 open Saturn
+open Saturn.OpenTelemetry
 open Serilog
 open Serilog.Events
 open Serilog.Sinks.OpenTelemetry
@@ -40,7 +41,7 @@ let apiHandler: HttpHandler =
 
 /// <summary>
 /// Saturn OpenTelemetry Configuration
-/// This record defines the configuration settings for OpenTelemetry in a Saturn application.
+/// Defines the configuration settings for OpenTelemetry in a Saturn application.
 /// </summary>
 /// <param name="AppId">The unique identifier for the application</param>
 /// <param name="Namespace">The namespace used for grouping related telemetry data</param>
