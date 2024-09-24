@@ -1,0 +1,106 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/github-workflow.json
+name: build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  NUGET_XMLDOC_MODE: ""
+  DOTNET_MULTILEVEL_LOOKUP: 0
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        config:
+          - Release
+          - Debug
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # so that NerdBank.GitVersioning has access to history
+      - name: Install Nix
+        uses: cachix/install-nix-action@V28
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: Restore dependencies
+        run: nix develop -f . default --command dotnet restore
+      - name: Build
+        run: nix develop -f . default --command dotnet build --no-restore --configuration ${{matrix.config}}
+      - name: Test
+        run: nix develop -f . default --command dotnet test --no-build --verbosity normal --configuration ${{matrix.config}}
+
+  build-nix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install Nix
+        uses: cachix/install-nix-action@V28
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: Build
+        run: nix build -f . default
+      # FIXME: This is a workaround for https://github.com/NixOS/nix/issues/7657
+      # - name: Reproducibility check
+      #   run: nix build -f . default --rebuild
+
+  check-dotnet-format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install Nix
+        uses: cachix/install-nix-action@V28
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: Run Fantomas
+        run: nix run -f . fantomas -- --check .
+
+  check-nix-format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install Nix
+        uses: cachix/install-nix-action@V28
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: Run Nixfmt
+        run: nix develop --command nixfmt --check .
+
+  nuget-pack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # so that NerdBank.GitVersioning has access to history
+      - name: Install Nix
+        uses: cachix/install-nix-action@V28
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: Restore dependencies
+        run: nix develop -f . default --command dotnet restore
+      - name: Build
+        run: nix develop -f . default --command dotnet build --no-restore --configuration Release
+      - name: Pack
+        run: nix develop -f . --command dotnet pack --configuration Release
+      - name: Upload NuGet artifact (plugin)
+        uses: actions/upload-artifact@v4
+        with:
+          name: nuget-package-plugin
+          path: Saturn.OpenTelemetry/bin/Release/Saturn.OpenTelemetry.*.nupkg
