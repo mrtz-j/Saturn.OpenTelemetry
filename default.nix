@@ -1,6 +1,20 @@
 {
   sources ? import ./deps,
   system ? builtins.currentSystem,
+  pre-commit-hook ? (import sources.git-hooks).run {
+    src = ./.;
+    hooks = {
+      nixfmt-rfc-style.enable = true;
+      deadnix.enable = true;
+      statix.enable = true;
+      fantomas = {
+        enable = true;
+        name = "Fantomas formatting";
+        entry = "dotnet fantomas";
+        files = "(\\.fs$)|(\\.fsx$)";
+      };
+    };
+  },
 }:
 let
   pname = "Saturn.OpenTelemetry";
@@ -14,6 +28,9 @@ let
       fsautocomplete
       nixfmt-rfc-style
     ];
+    shellHook = ''
+      ${pre-commit-hook.shellHook}
+    '';
   };
   pkgs = import sources.nixpkgs {
     inherit system;
@@ -23,7 +40,6 @@ let
 in
 {
   inherit shell;
-  fantomas = pkgs.fantomas;
   default = pkgs.callPackage ./deps/saturn-opentelemetry.nix {
     inherit
       pname

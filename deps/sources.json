@@ -1,5 +1,17 @@
 {
   "pins": {
+    "git-hooks": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "cachix",
+        "repo": "git-hooks.nix"
+      },
+      "branch": "master",
+      "revision": "4e743a6920eab45e8ba0fbe49dc459f1423a4b74",
+      "url": "https://github.com/cachix/git-hooks.nix/archive/4e743a6920eab45e8ba0fbe49dc459f1423a4b74.tar.gz",
+      "hash": "0fc69dsn5rhv2zb16c2bfgx84ja8cmn7d7j2mrw3n4m8y611x40g"
+    },
     "nixpkgs": {
       "type": "Git",
       "repository": {
@@ -8,9 +20,9 @@
         "repo": "nixpkgs"
       },
       "branch": "nixpkgs-unstable",
-      "revision": "a1d92660c6b3b7c26fb883500a80ea9d33321be2",
-      "url": "https://github.com/nixos/nixpkgs/archive/a1d92660c6b3b7c26fb883500a80ea9d33321be2.tar.gz",
-      "hash": "02ipaz5zmxf4mk4m9wpwmjigwcv4xcrnikhpxl2lahpjs5yyk4jp"
+      "revision": "568bfef547c14ca438c56a0bece08b8bb2b71a9c",
+      "url": "https://github.com/nixos/nixpkgs/archive/568bfef547c14ca438c56a0bece08b8bb2b71a9c.tar.gz",
+      "hash": "1xs8msc87xbigrdja137nbjzhrgcy2spj0sc8ia1idpc2d7crhb4"
     }
   },
   "version": 3
