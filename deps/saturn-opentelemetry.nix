@@ -14,6 +14,6 @@ pkgs.buildDotnetModule rec {
     ;
   name = "Saturn.OpenTelemetry";
   src = ../.;
-  projectFile = "src/Saturn.OpenTelemetry/Saturn.Opentelemetry.fsproj";
+  projectFile = "src/Saturn.OpenTelemetry/Saturn.OpenTelemetry.fsproj";
   nugetDeps = ./deps.nix;
 }

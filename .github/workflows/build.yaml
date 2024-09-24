@@ -98,7 +98,7 @@ jobs:
       - name: Build
         run: nix develop -f . default --command dotnet build --no-restore --configuration Release
       - name: Pack
-        run: nix develop -f . --command dotnet pack --configuration Release
+        run: nix develop -f . default --command dotnet pack --configuration Release
       - name: Upload NuGet artifact (plugin)
         uses: actions/upload-artifact@v4
         with:
