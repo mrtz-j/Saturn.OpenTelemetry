@@ -13,6 +13,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>fsharp;</PackageTags>
     <PackageId>Saturn.OpenTelemetry</PackageId>
+    <IsPackable>true</IsPackable>
     <WarnOn>FS3559</WarnOn>
   </PropertyGroup>
   <ItemGroup>
