@@ -13,17 +13,39 @@ env:
   DOTNET_MULTILEVEL_LOOKUP: 0
 
 jobs:
+  nuget-pack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install Nix
+        uses: cachix/install-nix-action@V28
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: Restore dependencies
+        run: nix develop -f . default --command dotnet restore
+      - name: Build
+        run: nix develop -f . default --command dotnet build --no-restore --configuration Release
+      - name: Pack
+        run: nix develop -f . default --command dotnet pack --configuration Release
+      - name: Upload NuGet artifact (plugin)
+        uses: actions/upload-artifact@v4
+        with:
+          name: nuget-package-plugin
+          path: Saturn.OpenTelemetry/bin/Release/Saturn.OpenTelemetry.*.nupkg
+
   nuget-publish:
     runs-on: ubuntu-latest
-    if: ${{ !github.event.repository.fork && github.ref == 'refs/heads/main' }}
-    needs: [all-required-checks-complete]
-    environment: main-deploy
     permissions:
       id-token: write
       attestations: write
       contents: read
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Install Nix
         uses: cachix/install-nix-action@V28
         with:
@@ -41,7 +63,6 @@ jobs:
 
   create-github-release:
     runs-on: ubuntu-latest
-    if: ${{ !github.event.repository.fork && github.ref == 'refs/heads/main' }}
     permissions:
       contents: write
     steps:
