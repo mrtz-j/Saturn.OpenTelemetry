@@ -56,11 +56,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: nuget-package
-          path: packed
       - name: Prep packages
         run: nix develop -f . default --command dotnet nuget add source --username mrtz-j --password ${{ secrets.NUGET_AUTH_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/mrtz-j/index.json"
       - name: Push package to GitHub packages
-        run: nix develop -f . default --command dotnet nuget push packed/nuget-package/*.nupkg --api-key ${{ secrets.NUGET_AUTH_TOKEN }}  --source "github"
+        run: nix develop -f . default --command dotnet nuget push nuget-package/*.nupkg --api-key ${{ secrets.NUGET_AUTH_TOKEN }}  --source "github"
 
   create-github-release:
     runs-on: ubuntu-latest
