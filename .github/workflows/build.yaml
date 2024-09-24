@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/github-workflow.json
-name: build
+name: Build
 
 on:
   push:
@@ -23,11 +23,10 @@ jobs:
           - Debug
 
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # so that NerdBank.GitVersioning has access to history
+          fetch-depth: 0
       - name: Install Nix
         uses: cachix/install-nix-action@V28
         with:
@@ -58,10 +57,11 @@ jobs:
 
   nuget-pack:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # so that NerdBank.GitVersioning has access to history
+          fetch-depth: 0
       - name: Install Nix
         uses: cachix/install-nix-action@V28
         with:
