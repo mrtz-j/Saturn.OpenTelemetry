@@ -1,6 +1,7 @@
 result
 .direnv/
 .pre-commit-config.yaml
+.idea/
 out/
 **/bin
 **/obj

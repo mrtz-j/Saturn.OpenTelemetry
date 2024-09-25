@@ -1,8 +1,13 @@
+module Program
+
 open System
 open Argu
 open Giraffe
 open Fable.Remoting.Server
 open Fable.Remoting.Giraffe
+open Microsoft.Extensions.Logging
+open Microsoft.AspNetCore.Builder
+open Microsoft.Extensions.DependencyInjection
 open Saturn
 open Saturn.OpenTelemetry
 open Serilog
@@ -83,10 +88,17 @@ let configureSerilog level =
         .WriteTo.Console()
         .CreateLogger()
 
+let configureServices (services: IServiceCollection) =
+    services.AddLogging(fun (b: ILoggingBuilder) -> b.ClearProviders().AddSerilog() |> ignore)
+
+let configureApp (app: IApplicationBuilder) = app
+
 let app port =
     application {
         use_router apiHandler
         url $"http://0.0.0.0:%i{port}/"
+        app_config configureApp
+        service_config configureServices
         use_otel otelConfig
         use_static "public"
         memory_cache
