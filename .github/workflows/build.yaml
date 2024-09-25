@@ -32,8 +32,6 @@ jobs:
         with:
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-      - name: Install Nix Cache
-        uses: DeterminateSystems/magic-nix-cache-action@main
       - name: Restore dependencies
         run: nix develop -f . default --command dotnet restore
       - name: Build
@@ -51,8 +49,6 @@ jobs:
         with:
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-      - name: Install Nix Cache
-        uses: DeterminateSystems/magic-nix-cache-action@main
       - name: Build
         run: nix build -f . default
       # FIXME: This is a workaround for https://github.com/NixOS/nix/issues/7657
@@ -71,8 +67,6 @@ jobs:
         with:
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-      - name: Install Nix Cache
-        uses: DeterminateSystems/magic-nix-cache-action@main
       - name: Restore dependencies
         run: nix develop -f . default --command dotnet restore
       - name: Build
