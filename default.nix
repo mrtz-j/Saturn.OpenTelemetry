@@ -20,7 +20,7 @@ let
   pname = "Saturn.OpenTelemetry";
   dotnet-sdk = pkgs.dotnet-sdk_8;
   dotnet-runtime = pkgs.dotnetCorePackages.runtime_8_0;
-  version = "0.2.0-alpha";
+  version = "0.3.0-alpha";
   shell = pkgs.mkShell {
     nativeBuildInputs = with pkgs; [
       dotnet-sdk_8
