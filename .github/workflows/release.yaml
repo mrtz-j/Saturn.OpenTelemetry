@@ -60,7 +60,7 @@ jobs:
       - name: Prep packages
         run: nix develop -f . default --command dotnet nuget add source --username mrtz-j --password ${{ secrets.NUGET_AUTH_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/mrtz-j/index.json"
       - name: Publish GitHub package
-        run: nix develop -f . default --command dotnet nuget push packed/*.nupkg --api-key ${{ secrets.NUGET_AUTH_TOKEN }}  --source "github"
+        run: nix develop -f . default --command dotnet nuget push packed/*.nupkg --api-key ${{ secrets.NUGET_AUTH_TOKEN }}  --source "github" --skip-duplicate
       - name: Identify .NET
         id: identify-dotnet
         run: nix develop -f . default --command bash -c "echo dotnet=$(which dotnet) >> $GITHUB_OUTPUT"
