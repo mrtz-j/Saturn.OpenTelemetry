@@ -46,7 +46,7 @@ type Metadata = (string * obj) list
 let TraceRate = 0.1
 
 [<Literal>]
-let TraceAll = false
+let TraceAll = true
 
 /// <summary>
 /// Deterministic sampler, will produce the same result for every span in a trace.

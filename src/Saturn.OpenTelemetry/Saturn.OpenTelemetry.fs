@@ -72,6 +72,7 @@ module OpenTelemetry =
                     )
                     .WithTracing(fun tra ->
                         tra
+                            // FIXME: Expose sampler to user
                             .SetSampler(Telemetry.Sampler())
                             .AddAspNetCoreInstrumentation(fun opt ->
                                 opt.Filter <- Telemetry.requestFilter
