@@ -67,7 +67,7 @@ jobs:
       - name: Publish NuGet package
         uses: G-Research/common-actions/publish-nuget@2b7dc49cb14f3344fbe6019c14a31165e258c059
         with:
-          package-name: WoofWare.PrattParser
+          package-name: Saturn.OpenTelemetry
           nuget-key: ${{ secrets.NUGET_API_KEY }}
           nupkg-dir: packed/
           dotnet: ${{ steps.identify-dotnet.outputs.dotnet }}
