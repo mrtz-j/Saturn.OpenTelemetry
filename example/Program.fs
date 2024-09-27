@@ -52,11 +52,17 @@ let apiHandler: HttpHandler =
 /// <param name="Namespace">The namespace used for grouping related telemetry data</param>
 /// <param name="Version">The version of the application</param>
 /// <param name="Endpoint">The URL endpoint where telemetry data will be sent</param>
+/// <param name="EnableRedis">Flag indicating whether Redis telemetry is enabled</param>
+/// <param name="EnableDatabase">Flag indicating whether EF Core database telemetry is enabled</param>
+/// <param name="EnableFga">Flag indicating whether OpenFGA telemetry is enabled</param>
 let otelConfig = {
     AppId = "Example"
     Namespace = "Saturn.OpenTelemetry"
     Version = "1.0.0"
     Endpoint = "http://localhost:4317"
+    EnableRedis = false
+    EnableDatabase = false
+    EnableFga = false
 }
 
 let configureSerilog level =

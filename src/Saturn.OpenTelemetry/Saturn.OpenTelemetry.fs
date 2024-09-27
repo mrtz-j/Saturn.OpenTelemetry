@@ -11,6 +11,7 @@ module OpenTelemetry =
     open OpenTelemetry.Metrics
     open OpenTelemetry.Trace
     open OpenTelemetry.Resources
+    open OpenFga.Sdk.Telemetry
 
     /// <summary>
     /// Configuration for OpenTelemetry.
@@ -44,6 +45,9 @@ module OpenTelemetry =
         /// "http://localhost:4317"
         /// </example>
         Endpoint: string
+        EnableRedis: bool
+        EnableDatabase: bool
+        EnableFga: bool
     }
 
     type ApplicationBuilder with
@@ -52,6 +56,8 @@ module OpenTelemetry =
         /// </summary>
         /// <param name="state">The current application state.</param>
         /// <param name="config">The OpenTelemetry configuration.</param>
+        /// <param name="enableRedis">Optional flag to enable Redis instrumentation.</param>
+        /// <param name="enableDatabase">Optional flag to enable database instrumentation.</param>
         /// <returns>Updated application state with OpenTelemetry configured.</returns>
         [<CustomOperation("use_otel")>]
         member this.UseOtel (state, config: OtelConfig) =
@@ -93,6 +99,23 @@ module OpenTelemetry =
                                     .AddService(config.AppId, config.Namespace, config.Version)
                             )
                             .AddOtlpExporter(fun opt -> opt.Endpoint <- new Uri(config.Endpoint))
+                        |> (fun tra ->
+                            match config.EnableRedis with
+                            | true -> tra.AddRedisInstrumentation() |> ignore
+                            | _ -> ()
+                            match config.EnableDatabase with
+                            | true ->
+                                tra.AddEntityFrameworkCoreInstrumentation(fun opt ->
+                                    // TODO(mrtz): Filter heavy syncs
+                                    // opt.Filter
+                                    opt.SetDbStatementForText <- true
+                                    opt.SetDbStatementForStoredProcedure <- true
+                                    opt.EnrichWithIDbCommand <- Telemetry.enrichIdb
+                                )
+                                |> ignore
+                            | _ -> ()
+                            tra
+                        )
                         |> ignore
                     )
                     // NOTE: Logging is currently not supported, use Serilog.Sinks.OpenTelemetry
@@ -118,6 +141,12 @@ module OpenTelemetry =
                             .AddRuntimeInstrumentation()
                             .AddProcessInstrumentation()
                             .AddOtlpExporter(fun opt -> opt.Endpoint <- new Uri(config.Endpoint))
+                        |> (fun met ->
+                            match config.EnableFga with
+                            | true -> met.AddMeter(Metrics.Name) |> ignore
+                            | _ -> ()
+                            met
+                        )
                         |> ignore
                     )
                 |> ignore
