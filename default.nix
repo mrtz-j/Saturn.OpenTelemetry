@@ -18,15 +18,15 @@
 }:
 let
   pname = "Saturn.OpenTelemetry";
-  dotnet-sdk = pkgs.dotnet-sdk_8;
+  dotnet-sdk = pkgs.dotnetCorePackages.sdk_8_0_4xx;
   dotnet-runtime = pkgs.dotnetCorePackages.runtime_8_0;
   version = "0.3.0-alpha";
   shell = pkgs.mkShell {
-    nativeBuildInputs = with pkgs; [
-      dotnet-sdk_8
-      fantomas
-      fsautocomplete
-      nixfmt-rfc-style
+    buildInputs = [
+      dotnet-sdk
+      pkgs.fantomas
+      pkgs.fsautocomplete
+      pkgs.nixfmt-rfc-style
     ];
     shellHook = ''
       ${pre-commit-hook.shellHook}
