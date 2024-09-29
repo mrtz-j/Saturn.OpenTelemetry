@@ -8,6 +8,7 @@ on:
     branches: [main]
 
 env:
+  FORCE_COLOR: 1
   DOTNET_NOLOGO: true
   DOTNET_CLI_TELEMETRY_OPTOUT: true
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
@@ -32,12 +33,17 @@ jobs:
         with:
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: Set up cachix
+        uses: cachix/cachix-action@v14
+        with:
+          name: saturnopentelemetry
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - name: Restore dependencies
-        run: nix develop -f . default --command dotnet restore
+        run: nix -Lv develop .#default --command dotnet restore
       - name: Build
-        run: nix develop -f . default --command dotnet build --no-restore --configuration ${{matrix.config}}
+        run: nix -Lv develop .#default --command dotnet build --no-restore --configuration ${{matrix.config}}
       - name: Test
-        run: nix develop -f . default --command dotnet test --no-build --verbosity normal --configuration ${{matrix.config}}
+        run: nix -Lv develop .#default --command dotnet test --no-build --verbosity normal --configuration ${{matrix.config}}
 
   build-nix:
     runs-on: ubuntu-latest
@@ -49,15 +55,18 @@ jobs:
         with:
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: Set up cachix
+        uses: cachix/cachix-action@v14
+        with:
+          name: saturnopentelemetry
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - name: Build
-        run: nix build -f . default
-      # FIXME: This is a workaround for https://github.com/NixOS/nix/issues/7657
-      # - name: Reproducibility check
-      #   run: nix build -f . default --rebuild
+        run: nix -Lv build .#default
+      - name: Reproducibility check
+        run: nix -Lv build .#default --rebuild
 
   nuget-pack:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
         with:
@@ -67,12 +76,17 @@ jobs:
         with:
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: Set up cachix
+        uses: cachix/cachix-action@v14
+        with:
+          name: saturnopentelemetry
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - name: Restore dependencies
-        run: nix develop -f . default --command dotnet restore
+        run: nix -Lv develop .#default --command dotnet restore
       - name: Build
-        run: nix develop -f . default --command dotnet build --no-restore --configuration Release
+        run: nix -Lv develop .#default --command dotnet build --no-restore --configuration Release
       - name: Pack
-        run: nix develop -f . default --command dotnet pack --configuration Release
+        run: nix -Lv develop .#default --command dotnet pack --configuration Release
       - name: Upload NuGet artifact (plugin)
         uses: actions/upload-artifact@v4
         with:

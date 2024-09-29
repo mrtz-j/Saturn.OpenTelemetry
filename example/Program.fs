@@ -9,6 +9,7 @@ open Microsoft.Extensions.Logging
 open Microsoft.AspNetCore.Builder
 open Microsoft.Extensions.DependencyInjection
 open Saturn
+// Import the OpenTelemetry module
 open Saturn.OpenTelemetry
 open Serilog
 open Serilog.Events
@@ -44,25 +45,12 @@ let apiHandler: HttpHandler =
     |> Remoting.fromValue api
     |> Remoting.buildHttpHandler
 
-/// <summary>
-/// Saturn OpenTelemetry Configuration
-/// Defines the configuration settings for OpenTelemetry in a Saturn application.
-/// </summary>
-/// <param name="AppId">The unique identifier for the application</param>
-/// <param name="Namespace">The namespace used for grouping related telemetry data</param>
-/// <param name="Version">The version of the application</param>
-/// <param name="Endpoint">The URL endpoint where telemetry data will be sent</param>
-/// <param name="EnableRedis">Flag indicating whether Redis telemetry is enabled</param>
-/// <param name="EnableDatabase">Flag indicating whether EF Core database telemetry is enabled</param>
-/// <param name="EnableFga">Flag indicating whether OpenFGA telemetry is enabled</param>
-let otelConfig = {
-    AppId = "Example"
-    Namespace = "Saturn.OpenTelemetry"
-    Version = "1.0.0"
+// General OpenTelemetry Configuration
+let otelConfig: OtelConfig = {
     Endpoint = "http://localhost:4317"
-    EnableRedis = false
-    EnableDatabase = false
-    EnableFga = false
+    AppId = "Example"
+    Namespace = "Saturn"
+    Version = "1.0.0"
 }
 
 let configureSerilog level =
@@ -77,6 +65,7 @@ let configureSerilog level =
         .MinimumLevel.Is(n)
         .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
         .MinimumLevel.Override("System", LogEventLevel.Information)
+        // Serilog sink for OpenTelemetry
         .WriteTo.OpenTelemetry(fun opt ->
             opt.Endpoint <- otelConfig.Endpoint
             opt.IncludedData <-
@@ -105,7 +94,17 @@ let app port =
         url $"http://0.0.0.0:%i{port}/"
         app_config configureApp
         service_config configureServices
-        use_otel otelConfig
+        // OpenTelemetry Configuration
+        use_otel (
+            configure_otel {
+                // These are required
+                settings otelConfig
+            // These are optional and can be used to enable specific features
+            // use_efcore
+            // use_redis
+            // use_openfga
+            }
+        )
         use_static "public"
         memory_cache
         use_gzip
@@ -126,7 +125,10 @@ let main argv =
     let args = parser.Parse argv
     let port = args.GetResult(Port, defaultValue = 8085)
     Log.Logger <- configureSerilog (args.GetResult(Log_Level, defaultValue = 4))
+
+    // Initialize OpenTelemetry
     Telemetry.init otelConfig.AppId
+
     Log.Information $"Exporting telemetry data to %s{otelConfig.Endpoint}"
     run (app port)
     0

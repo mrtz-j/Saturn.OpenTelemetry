@@ -1,54 +1,84 @@
-namespace Saturn.OpenTelemetry
+namespace Saturn
 
+open System
+open System.ComponentModel
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.AspNetCore.Builder
 
-/// <summary> Initial module </summary>
-[<AutoOpen>]
+// [<AutoOpen>
 module OpenTelemetry =
     open Saturn
-    open System
     open OpenTelemetry.Metrics
     open OpenTelemetry.Trace
     open OpenTelemetry.Resources
     open OpenFga.Sdk.Telemetry
 
     /// <summary>
-    /// Configuration for OpenTelemetry.
+    /// Saturn OpenTelemetry Configuration
+    /// Defines the configuration settings for OpenTelemetry in a Saturn application.
     /// </summary>
+    /// <param name="AppId">The unique identifier for the application</param>
+    /// <param name="Namespace">The namespace used for grouping related telemetry data</param>
+    /// <param name="Version">The version of the application</param>
+    /// <param name="Endpoint">The URL endpoint where telemetry data will be sent</param>
     type OtelConfig = {
-        /// <summary>
-        /// The application identifier.
-        /// </summary>
-        /// <example>
-        /// "my-app"
-        /// </example>
-        AppId: string
-        /// <summary>
-        /// The namespace for the application.
-        /// </summary>
-        /// <example>
-        /// "com.example"
-        /// </example>
-        Namespace: string
-        /// <summary>
-        /// The version of the application.
-        /// </summary>
-        /// <example>
-        /// "1.0.0"
-        /// </example>
-        Version: string
-        /// <summary>
-        /// The endpoint for OpenTelemetry data collection.
-        /// </summary>
-        /// <example>
-        /// "http://localhost:4317"
-        /// </example>
         Endpoint: string
-        EnableRedis: bool
-        EnableDatabase: bool
-        EnableFga: bool
+        AppId: string
+        Namespace: string
+        Version: string
     }
+
+    [<EditorBrowsable(EditorBrowsableState.Never); RequireQualifiedAccess>]
+    module State =
+        type Empty = | Init
+
+        type Settings = {
+            OtelConfig: OtelConfig
+            UseRedis: bool option
+            UseEfCore: bool option
+            UseOpenFga: bool option
+        }
+
+    type SettingsBuilder() =
+        member _.Yield (_) = {
+            State.OtelConfig = {
+                Endpoint = ""
+                AppId = ""
+                Namespace = ""
+                Version = ""
+            }
+            State.UseRedis = None
+            State.UseEfCore = None
+            State.UseOpenFga = None
+        }
+
+        /// The OpenTelemetry configuration settings.
+        [<CustomOperation("settings")>]
+        member _.Settings (state: State.Settings, otelConfig: OtelConfig) = {
+            state with
+                State.OtelConfig = {
+                    Endpoint = otelConfig.Endpoint
+                    AppId = otelConfig.AppId
+                    Namespace = otelConfig.Namespace
+                    Version = otelConfig.Version
+                }
+        }
+
+        /// Enable Redis instrumentation.
+        [<CustomOperation("use_redis")>]
+        member _.UseRedis (state: State.Settings) = { state with State.UseRedis = Some true }
+
+        /// Enable EF Core instrumentation.
+        [<CustomOperation("use_efcore")>]
+        member _.UseEfCore (state: State.Settings) = { state with State.UseEfCore = Some true }
+
+        /// Enable OpenFGA instrumentation.
+        [<CustomOperation("use_openfga")>]
+        member _.UseOpenFga (state: State.Settings) = { state with State.UseOpenFga = Some true }
+
+    [<AutoOpen>]
+    module Builder =
+        let configure_otel = SettingsBuilder()
 
     type ApplicationBuilder with
         /// <summary>
@@ -56,21 +86,33 @@ module OpenTelemetry =
         /// </summary>
         /// <param name="state">The current application state.</param>
         /// <param name="config">The OpenTelemetry configuration.</param>
-        /// <param name="enableRedis">Optional flag to enable Redis instrumentation.</param>
-        /// <param name="enableDatabase">Optional flag to enable database instrumentation.</param>
         /// <returns>Updated application state with OpenTelemetry configured.</returns>
         [<CustomOperation("use_otel")>]
-        member this.UseOtel (state, config: OtelConfig) =
+        member this.UseOtel (state, config: State.Settings) =
+            if
+                String.IsNullOrEmpty(config.OtelConfig.Endpoint)
+                || String.IsNullOrEmpty(config.OtelConfig.AppId)
+                || String.IsNullOrEmpty(config.OtelConfig.Version)
+                || String.IsNullOrEmpty(config.OtelConfig.Namespace)
+            then
+                failwith
+                    "OpenTelemetry configuration is not provided or incomplete. Please use the 'settings' operation to configure OpenTelemetry."
+
             let middleware (app: IApplicationBuilder) = app
             let service (service: IServiceCollection) =
                 service
-                    .AddOpenTelemetry() // Tracing and Metrics
+                    .AddOpenTelemetry()
                     .ConfigureResource(fun res ->
-                        res.AddService(config.AppId, config.Namespace, config.Version) |> ignore
+                        res.AddService(
+                            config.OtelConfig.AppId,
+                            config.OtelConfig.Namespace,
+                            config.OtelConfig.Version
+                        )
+                        |> ignore
                         res.AddAttributes(
                             dict [
-                                "service.name", box config.AppId
-                                "service.version", box config.Version
+                                "service.name", box config.OtelConfig.AppId
+                                "service.version", box config.OtelConfig.Version
                                 "host.name", box Environment.MachineName
                             ]
                         )
@@ -78,73 +120,67 @@ module OpenTelemetry =
                     )
                     .WithTracing(fun tra ->
                         tra
-                            // FIXME: Expose sampler to user
                             .SetSampler(Telemetry.Sampler())
                             .AddAspNetCoreInstrumentation(fun opt ->
                                 opt.Filter <- Telemetry.requestFilter
                                 opt.EnrichWithHttpRequest <- Telemetry.enrichHttpRequest
                                 opt.EnrichWithHttpResponse <- Telemetry.enrichHttpResponse
                                 opt.RecordException <- true
-                                ()
                             )
                             .AddHttpClientInstrumentation(fun opt ->
                                 opt.FilterHttpRequestMessage <- Telemetry.clientRequestFilter
                                 opt.RecordException <- true
-                                ()
                             )
-                            .AddSource(config.AppId)
+                            .AddSource(config.OtelConfig.AppId)
                             .SetResourceBuilder(
                                 ResourceBuilder
                                     .CreateDefault()
-                                    .AddService(config.AppId, config.Namespace, config.Version)
+                                    .AddService(
+                                        config.OtelConfig.AppId,
+                                        config.OtelConfig.Namespace,
+                                        config.OtelConfig.Version
+                                    )
                             )
-                            .AddOtlpExporter(fun opt -> opt.Endpoint <- new Uri(config.Endpoint))
+                            .AddOtlpExporter(fun opt ->
+                                opt.Endpoint <- new Uri(config.OtelConfig.Endpoint)
+                            )
                         |> (fun tra ->
-                            match config.EnableRedis with
-                            | true -> tra.AddRedisInstrumentation() |> ignore
-                            | _ -> ()
-                            match config.EnableDatabase with
-                            | true ->
+                            config.UseRedis
+                            |> Option.iter (fun _ -> tra.AddRedisInstrumentation() |> ignore)
+                            config.UseEfCore
+                            |> Option.iter (fun _ ->
                                 tra.AddEntityFrameworkCoreInstrumentation(fun opt ->
-                                    // TODO(mrtz): Filter heavy syncs
-                                    // opt.Filter
                                     opt.SetDbStatementForText <- true
                                     opt.SetDbStatementForStoredProcedure <- true
                                     opt.EnrichWithIDbCommand <- Telemetry.enrichIdb
                                 )
                                 |> ignore
-                            | _ -> ()
+                            )
                             tra
                         )
                         |> ignore
                     )
-                    // NOTE: Logging is currently not supported, use Serilog.Sinks.OpenTelemetry
-                    // .WithLogging(fun log ->
-                    //     log
-                    //         .SetResourceBuilder(
-                    //             ResourceBuilder
-                    //                 .CreateDefault()
-                    //                 .AddService(config.AppId, config.Namespace, config.Version)
-                    //         )
-                    //         .AddOtlpExporter(fun opt -> opt.Endpoint <- new Uri(config.Endpoint))
-                    //     |> ignore
-                    // )
                     .WithMetrics(fun met ->
                         met
                             .SetResourceBuilder(
                                 ResourceBuilder
                                     .CreateDefault()
-                                    .AddService(config.AppId, config.Namespace, config.Version)
+                                    .AddService(
+                                        config.OtelConfig.AppId,
+                                        config.OtelConfig.Namespace,
+                                        config.OtelConfig.Version
+                                    )
                             )
                             .AddAspNetCoreInstrumentation()
                             .AddHttpClientInstrumentation()
                             .AddRuntimeInstrumentation()
                             .AddProcessInstrumentation()
-                            .AddOtlpExporter(fun opt -> opt.Endpoint <- new Uri(config.Endpoint))
+                            .AddOtlpExporter(fun opt ->
+                                opt.Endpoint <- new Uri(config.OtelConfig.Endpoint)
+                            )
                         |> (fun met ->
-                            match config.EnableFga with
-                            | true -> met.AddMeter(Metrics.Name) |> ignore
-                            | _ -> ()
+                            config.UseOpenFga
+                            |> Option.iter (fun _ -> met.AddMeter(Metrics.Name) |> ignore)
                             met
                         )
                         |> ignore
@@ -152,5 +188,8 @@ module OpenTelemetry =
                 |> ignore
                 service
 
-            this.ServiceConfig(state, service)
-            |> fun state -> this.AppConfig(state, middleware)
+            {
+                state with
+                    ServicesConfig = service :: state.ServicesConfig
+                    AppConfigs = middleware :: state.AppConfigs
+            }

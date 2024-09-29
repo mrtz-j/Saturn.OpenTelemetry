@@ -4,6 +4,16 @@
 { fetchNuGet }:
 [
   (fetchNuGet {
+    pname = "fantomas";
+    version = "6.3.15";
+    hash = "sha256-Gjw7MxjUNckMWSfnOye4UTe5fZWnor6RHCls3PNsuG8=";
+  })
+  (fetchNuGet {
+    pname = "fsharp-analyzers";
+    version = "0.27.0";
+    hash = "sha256-QhLi2veTY1wZlQKJLTyVPgx/ImkaZugQNjSN5VJCNEA=";
+  })
+  (fetchNuGet {
     pname = "FSharp.Control.Websockets";
     version = "0.2.2";
     hash = "sha256-EAfYPteT1MXcdOTkx3HWsAgIc1e7qi0NqAMsc7+WXuQ=";

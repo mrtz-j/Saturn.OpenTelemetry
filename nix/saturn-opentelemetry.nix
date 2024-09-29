@@ -3,9 +3,9 @@
   version,
   dotnet-sdk,
   dotnet-runtime,
-  pkgs,
+  buildDotnetModule,
 }:
-pkgs.buildDotnetModule rec {
+buildDotnetModule rec {
   inherit
     pname
     version
@@ -15,5 +15,5 @@ pkgs.buildDotnetModule rec {
   name = "Saturn.OpenTelemetry";
   src = ../.;
   projectFile = "src/Saturn.OpenTelemetry/Saturn.OpenTelemetry.fsproj";
-  nugetDeps = ./deps.nix;
+  nugetDeps = ./deps.nix; # `nix build .#default.passthru.fetch-deps && ./result nix/deps.nix`
 }
