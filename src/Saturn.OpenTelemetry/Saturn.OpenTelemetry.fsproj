@@ -2,6 +2,7 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <OutputType>library</OutputType>
+    <Version>0.4.0-alpha</Version>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Authors>Moritz Jörg</Authors>
@@ -11,7 +12,7 @@
     <RepositoryUrl>https://github.com/mrtz-j/Saturn.OpenTelemetry</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageTags>fsharp;</PackageTags>
+    <PackageTags>fsharp;opentelemetry;</PackageTags>
     <PackageId>Saturn.OpenTelemetry</PackageId>
     <IsPackable>true</IsPackable>
     <WarnOn>FS3559</WarnOn>
