@@ -76,9 +76,10 @@
             buildInputs = [
               dotnet-sdk
             ];
-            packages = [
-              pkgs.fantomas
-              pkgs.fsautocomplete
+            packages = with pkgs; [
+              fantomas
+              fsautocomplete
+              nixfmt-rfc-style
             ];
           };
         };
