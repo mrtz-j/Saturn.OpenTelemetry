@@ -15,13 +15,9 @@
   };
 
   outputs =
-    inputs@{
-      parts,
-      systems,
-      ...
-    }:
-    parts.lib.mkFlake { inherit inputs; } {
-      systems = import systems;
+    inputs:
+    inputs.parts.lib.mkFlake { inherit inputs; } {
+      systems = import inputs.systems;
       imports = [
         inputs.pre-commit-hooks.flakeModule
       ];
@@ -63,15 +59,13 @@
                 dotnet-runtime
                 ;
             };
-            # TODO: Package the example app as a container
-            # container = pkgs.callPackage ./nix/container.nix {
-            #   default = config.packages.default;
-            # };
+            example = pkgs.callPackage ./nix/example.nix { };
+          };
+          apps.example = {
+            type = "app";
+            program = "${config.packages.example}/bin/Example";
           };
           devShells.default = pkgs.mkShell {
-            shellHook = ''
-              ${config.pre-commit.installationScript}
-            '';
             name = "SaturnOpenTelemetry";
             buildInputs = [
               dotnet-sdk
@@ -81,6 +75,9 @@
               fsautocomplete
               nixfmt-rfc-style
             ];
+            shellHook = ''
+              ${config.pre-commit.installationScript}
+            '';
           };
         };
     };
