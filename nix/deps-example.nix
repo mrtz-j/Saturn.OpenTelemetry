@@ -10,13 +10,13 @@
   })
   (fetchNuGet {
     pname = "Fable.Remoting.Giraffe";
-    version = "5.20.0";
-    hash = "sha256-vm4dxNlOZ1aKCfMvze2tNwW3sVZaeIy3VuK7x/i/VQc=";
+    version = "5.21.0";
+    hash = "sha256-C/E8XTRjQ2v+AmdX/A34z+xekM2d7x3oKZH5onV9Yik=";
   })
   (fetchNuGet {
     pname = "Fable.Remoting.Json";
-    version = "2.24.0";
-    hash = "sha256-qnK09Jo/O+ovj8xGsXb/2Or58pLJ+Fw8xgvRuttpvFw=";
+    version = "2.25.0";
+    hash = "sha256-Q8v2kBhHRFRKf+Czd5SVNzAI3Jo+O/FsLq5fhNdJK6g=";
   })
   (fetchNuGet {
     pname = "Fable.Remoting.MsgPack";
@@ -25,8 +25,8 @@
   })
   (fetchNuGet {
     pname = "Fable.Remoting.Server";
-    version = "5.38.0";
-    hash = "sha256-srvFeB8r+aekJdO5Gw44WmJtpAKDHokB8pzuXRaDk+M=";
+    version = "5.39.0";
+    hash = "sha256-gnkiRBKuIb5ohgAtY9fhH42AEbNv6DYCl6CkOJREncs=";
   })
   (fetchNuGet {
     pname = "fantomas";
@@ -45,8 +45,8 @@
   })
   (fetchNuGet {
     pname = "FSharp.Core";
-    version = "8.0.400";
-    hash = "sha256-wlrcAjjvI5YtnHR7kFH8uRUA4GomJYmqr41K5LYjCGs=";
+    version = "8.0.401";
+    hash = "sha256-+tp7/Ssr5lb55ZBTOjTuuH0rLCGfhe5Yjq4jvU5KML0=";
   })
   (fetchNuGet {
     pname = "Giraffe";
@@ -150,8 +150,8 @@
   })
   (fetchNuGet {
     pname = "Microsoft.Extensions.DependencyModel";
-    version = "8.0.1";
-    hash = "sha256-m8daXRK1Qn9y2c8SmtWu9ysLHwFJtEWiUQoAnMalw7s=";
+    version = "8.0.2";
+    hash = "sha256-PyuO/MyCR9JtYqpA1l/nXGh+WLKCq34QuAXN9qNza9Q=";
   })
   (fetchNuGet {
     pname = "Microsoft.Extensions.Diagnostics.Abstractions";
@@ -255,11 +255,6 @@
   })
   (fetchNuGet {
     pname = "Newtonsoft.Json";
-    version = "12.0.2";
-    hash = "sha256-BW7sXT2LKpP3ylsCbTTZ1f6Mg1sR4yL68aJVHaJcTnA=";
-  })
-  (fetchNuGet {
-    pname = "Newtonsoft.Json";
     version = "12.0.3";
     hash = "sha256-PSHK+Qn52ytdEySdZyjCUGxV5y4hI/vir2WgVsCgv50=";
   })
@@ -315,8 +310,8 @@
   })
   (fetchNuGet {
     pname = "OpenTelemetry.Instrumentation.Process";
-    version = "0.5.0-beta.6";
-    hash = "sha256-buZiPjB6yr5Lo/xYSrRHzXFonQca6VrDCQMJE/6nJfs=";
+    version = "0.5.0-beta.7";
+    hash = "sha256-JYq4X/MhuR/o76F+UUzm6AT+IZK2uWEkrCoqnFwLO+M=";
   })
   (fetchNuGet {
     pname = "OpenTelemetry.Instrumentation.Runtime";
@@ -345,13 +340,13 @@
   })
   (fetchNuGet {
     pname = "Serilog";
-    version = "4.0.1";
-    hash = "sha256-yenpr50Qf+nq1nrqyg3TKJqOroSyIKHke/9nfkA3wYg=";
+    version = "4.0.2";
+    hash = "sha256-vkd4s/PsKnnVzN1+f9haIP5LoxNWxnhdv3mBQYl/2Hc=";
   })
   (fetchNuGet {
     pname = "Serilog.AspNetCore";
-    version = "8.0.2";
-    hash = "sha256-cRZHG2bqrESOxPVxq2v+mHx+oZBzZEPksrleGVXO1p0=";
+    version = "8.0.3";
+    hash = "sha256-ZyBlauyG/7CLTqrbhRalmayFd99d7bimNTMw4hXDR2I=";
   })
   (fetchNuGet {
     pname = "Serilog.Expressions";
@@ -375,8 +370,8 @@
   })
   (fetchNuGet {
     pname = "Serilog.Settings.Configuration";
-    version = "8.0.2";
-    hash = "sha256-iHRQt6vDk85/6HpMXiJluAwhkjgwEnL3IKavfDgFX0k=";
+    version = "8.0.4";
+    hash = "sha256-00abT3H5COh5/A/tMYJwAZ37Mwa6jafVvW/nysLIbNQ=";
   })
   (fetchNuGet {
     pname = "Serilog.Sinks.Console";
@@ -395,8 +390,8 @@
   })
   (fetchNuGet {
     pname = "Serilog.Sinks.OpenTelemetry";
-    version = "4.1.0";
-    hash = "sha256-JAArynkBfPsDvTok8worDKFeeWYgyfSTC9YdlS6+ZW8=";
+    version = "4.1.1";
+    hash = "sha256-ls6Gal3U8WwxLT0AStHHS9HRhf3a/3TIPAn+GjXYHPE=";
   })
   (fetchNuGet {
     pname = "StackExchange.Redis";
@@ -497,11 +492,6 @@
     pname = "System.Text.Json";
     version = "8.0.3";
     hash = "sha256-ljBBGkResXv3MbrA14hR6QXo8SFLLV52GkpA+wxKdEo=";
-  })
-  (fetchNuGet {
-    pname = "System.Text.Json";
-    version = "8.0.4";
-    hash = "sha256-g5oT7fbXxQ9Iah1nMCr4UUX/a2l+EVjJyTrw3FTbIaI=";
   })
   (fetchNuGet {
     pname = "System.Threading.Tasks";

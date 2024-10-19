@@ -230,8 +230,8 @@
   })
   (fetchNuGet {
     pname = "OpenTelemetry.Instrumentation.Process";
-    version = "0.5.0-beta.6";
-    hash = "sha256-buZiPjB6yr5Lo/xYSrRHzXFonQca6VrDCQMJE/6nJfs=";
+    version = "0.5.0-beta.7";
+    hash = "sha256-JYq4X/MhuR/o76F+UUzm6AT+IZK2uWEkrCoqnFwLO+M=";
   })
   (fetchNuGet {
     pname = "OpenTelemetry.Instrumentation.Runtime";
