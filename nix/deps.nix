@@ -20,8 +20,8 @@
   })
   (fetchNuGet {
     pname = "FSharp.Core";
-    version = "8.0.400";
-    hash = "sha256-wlrcAjjvI5YtnHR7kFH8uRUA4GomJYmqr41K5LYjCGs=";
+    version = "8.0.401";
+    hash = "sha256-+tp7/Ssr5lb55ZBTOjTuuH0rLCGfhe5Yjq4jvU5KML0=";
   })
   (fetchNuGet {
     pname = "Giraffe";

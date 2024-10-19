@@ -30,7 +30,7 @@
         let
           pname = "SaturnOpenTelemetry";
           version = "0.5.0-alpha";
-          dotnet-sdk = pkgs.dotnetCorePackages.sdk_8_0_4xx;
+          dotnet-sdk = pkgs.dotnet-sdk_8;
           dotnet-runtime = pkgs.dotnetCorePackages.runtime_8_0;
         in
         {
@@ -59,7 +59,12 @@
                 dotnet-runtime
                 ;
             };
-            example = pkgs.callPackage ./nix/example.nix { };
+            example = pkgs.callPackage ./nix/example.nix {
+              inherit
+                version
+                dotnet-sdk
+                ;
+            };
           };
           apps.example = {
             type = "app";

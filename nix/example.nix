@@ -1,14 +1,14 @@
 {
-  dotnet-sdk_8,
+  version,
+  dotnet-sdk,
   dotnet-aspnetcore_8,
   buildDotnetModule,
 }:
 buildDotnetModule {
+  inherit version dotnet-sdk;
   pname = "Example";
   name = "Example";
-  version = "0.1.0";
   src = ../.;
-  dotnet-sdk = dotnet-sdk_8;
   dotnet-runtime = dotnet-aspnetcore_8;
   projectFile = "example/Example.fsproj";
   executables = [ "Example" ];
