@@ -29,7 +29,7 @@
         }:
         let
           pname = "SaturnOpenTelemetry";
-          version = "0.5.0-alpha";
+          version = "0.5.1-alpha";
           dotnet-sdk = pkgs.dotnet-sdk_8;
           dotnet-runtime = pkgs.dotnetCorePackages.runtime_8_0;
         in

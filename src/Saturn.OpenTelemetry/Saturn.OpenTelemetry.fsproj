@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <OutputType>library</OutputType>
-    <Version>0.5.0-alpha</Version>
+    <Version>0.5.1-alpha</Version>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Authors>Moritz Jörg</Authors>
