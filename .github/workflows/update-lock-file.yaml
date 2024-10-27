@@ -27,13 +27,13 @@ jobs:
       - uses: DeterminateSystems/magic-nix-cache-action@v8
         with:
           diagnostic-endpoint: ""
-      - name: Update Nix flake
-        run: nix -Lv flake update
+      - name: Update Nix deps
+        run: nix -Lv develop -f . default --command npins -d nix
       - name: Build passthru
-        run: nix -Lv build ".#default.passthru.fetch-deps"
+        run: nix -Lv build -f . default.passthru.fetch-deps
       - name: Run passthru
         run: ./result nix/deps.nix
       - name: Format
-        run: nix -Lv develop .#default --command nixfmt .
+        run: nix -Lv develop -f . default --command nixfmt .
       - name: Check
-        run: nix -Lv flake check
+        run: nix -Lv build -f . default

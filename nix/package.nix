@@ -1,11 +1,12 @@
 {
+  lib,
   pname,
   version,
   dotnet-sdk,
   dotnet-runtime,
   buildDotnetModule,
 }:
-buildDotnetModule rec {
+buildDotnetModule {
   inherit
     pname
     version
@@ -13,7 +14,8 @@ buildDotnetModule rec {
     dotnet-runtime
     ;
   name = "Saturn.OpenTelemetry";
-  src = ../.;
+  src = lib.cleanSource ../.;
   projectFile = "src/Saturn.OpenTelemetry/Saturn.OpenTelemetry.fsproj";
+  doCheck = true;
   nugetDeps = ./deps.nix; # `nix build .#default.passthru.fetch-deps && ./result nix/deps.nix`
 }
