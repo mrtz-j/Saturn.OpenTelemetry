@@ -1,7 +1,7 @@
 {
   version,
   dotnet-sdk,
-  dotnet-aspnetcore_8,
+  dotnetCorePackages,
   buildDotnetModule,
 }:
 buildDotnetModule {
@@ -9,7 +9,7 @@ buildDotnetModule {
   pname = "Example";
   name = "Example";
   src = ../.;
-  dotnet-runtime = dotnet-aspnetcore_8;
+  dotnet-runtime = dotnetCorePackages.dotnet_9.aspnetcore;
   projectFile = "example/Example.fsproj";
   executables = [ "Example" ];
   nugetDeps = ./deps-example.nix; # nix -Lv build .#example.passthru.fetch-deps && ./result nix/deps-example.nix
