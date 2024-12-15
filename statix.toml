@@ -1,7 +1,7 @@
 disabled = [
   # I think enforcing this can often produce
   # code that is harder to read.
-  "manual_inherit_from"
+  "manual_inherit_from",
   # Does not improve readability
   "repeated_keys"
 ]

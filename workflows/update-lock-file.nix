@@ -24,13 +24,13 @@
       {
         name = "Update dependencies";
         run = ''
-          nix -Lv develop -f . default --command npins update -d nix
+          nix -Lv flake update
         '';
       }
       {
         name = "Build passthru";
         run = ''
-          nix -Lv build -f . default.passthru.fetch-deps
+          nix -Lv build .#default.passthru.fetch-deps
         '';
       }
       {
@@ -40,24 +40,16 @@
         '';
       }
       {
-        uses = "EndBug/add-and-commit@v9";
-        "with" = {
-          default_author = "github_actions";
-          message = "chore(npins): Update deps";
-          fetch = false;
-          new_branch = "npins";
-          push = "--set-upstream origin npins --force";
-        };
+        name = "Format";
+        run = ''
+          nix -Lv build .#default --command nixfmt .
+        '';
       }
       {
-        uses = "thomaseizinger/create-pull-request@1.4.0";
-        "if" = "\${{ steps.commit.outputs.pushed == 'true' }}";
-        "with" = {
-          github_token = "\${{ secrets.GITHUB_TOKEN }}";
-          head = "npins";
-          base = "main";
-          title = "chore(npins): Update deps";
-        };
+        name = "Check";
+        run = ''
+          nix -Lv flake check
+        '';
       }
     ];
   };
