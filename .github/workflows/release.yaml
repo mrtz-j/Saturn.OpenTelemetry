@@ -81,7 +81,7 @@ jobs:
       run: nix -Lv develop .#default --command bash -c "echo dotnet=$(which dotnet)
         >> $GITHUB_OUTPUT"
     - name: Publish NuGet package
-      uses: G-Research/common-actions/publish-nuget@33666a03520041a810d377d5b01507df9a5b5d83
+      uses: G-Research/common-actions/publish-nuget@2b7dc49cb14f3344fbe6019c14a31165e258c059
       with:
         dotnet: ${{ steps.identify-dotnet.outputs.dotnet }}
         nuget-key: ${{ secrets.NUGET_API_KEY }}

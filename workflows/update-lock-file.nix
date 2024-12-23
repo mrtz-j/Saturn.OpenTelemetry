@@ -1,5 +1,5 @@
 {
-  name = "update npins";
+  name = "update lock file";
   on.schedule = [
     # Run at 00:00 UTC every Sunday
     { cron = "0 0 * * 1"; }
@@ -42,7 +42,7 @@
       {
         name = "Format";
         run = ''
-          nix -Lv build .#default --command nixfmt .
+          nix -Lv develop .#default --command nixfmt .
         '';
       }
       {
