@@ -1,5 +1,6 @@
 {
   name = "update lock file";
+  on.workflow_dispatch = true;
   on.schedule = [
     # Run at 00:00 UTC every Sunday
     { cron = "0 0 * * 1"; }
