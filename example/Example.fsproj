@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <OutputType>exe</OutputType>
-    <Version>0.5.1-alpha</Version>
+    <Version>0.6.0</Version>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <WarnOn>FS3559</WarnOn>
