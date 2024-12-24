@@ -34,7 +34,7 @@
         }:
         let
           pname = "SaturnOpenTelemetry";
-          version = "0.5.1-alpha";
+          version = "0.6.0-alpha";
           dotnet-sdk = pkgs.dotnetCorePackages.dotnet_9.sdk;
           dotnet-runtime = pkgs.dotnetCorePackages.dotnet_9.runtime;
           workflows = (import inputs.nix-actions { inherit pkgs; }).install {
@@ -86,8 +86,9 @@
           };
           devShells.default = pkgs.mkShell {
             name = "SaturnOpenTelemetry";
-            packages = with pkgs; [
+            packages = [
               dotnet-sdk
+              pkgs.svu
             ];
             DOTNET_CLI_TELEMETRY_OPTOUT = "true";
             DOTNET_ROOT = "${dotnet-sdk.unwrapped}/share/dotnet";
