@@ -30,13 +30,13 @@
       {
         name = "Build passthru";
         run = ''
-          nix -Lv build .#default.passthru.fetch-deps
+          nix -Lv build .#default.fetch-deps
         '';
       }
       {
         name = "Run passthru";
         run = ''
-          ./result nix/deps.nix
+          ./result nix/deps.json
         '';
       }
       {

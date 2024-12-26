@@ -100,7 +100,7 @@
         {
           name = "Identify .NET";
           id = "identify-dotnet";
-          run = "nix -Lv develop .#default --command bash -c \"echo dotnet=$(which dotnet) >> $GITHUB_OUTPUT\"";
+          run = "nix -Lv develop .#default --command bash -c 'echo \"dotnet=$(which dotnet)\" >> $GITHUB_OUTPUT'";
         }
         {
           name = "Publish NuGet package";

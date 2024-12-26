@@ -13,9 +13,9 @@ jobs:
     - name: Update dependencies
       run: "nix -Lv flake update\n"
     - name: Build passthru
-      run: "nix -Lv build .#default.passthru.fetch-deps\n"
+      run: "nix -Lv build .#default.fetch-deps\n"
     - name: Run passthru
-      run: "./result nix/deps.nix\n"
+      run: "./result nix/deps.json\n"
     - name: Format
       run: "nix -Lv develop .#default --command nixfmt .\n"
     - name: Check
