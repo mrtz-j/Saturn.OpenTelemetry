@@ -34,7 +34,7 @@
         }:
         let
           pname = "SaturnOpenTelemetry";
-          version = "0.6.0";
+          version = "v0.6.0-alpha";
           dotnet-sdk = pkgs.dotnetCorePackages.dotnet_9.sdk;
           dotnet-runtime = pkgs.dotnetCorePackages.dotnet_9.runtime;
           workflows = (import inputs.nix-actions { inherit pkgs; }).install {
