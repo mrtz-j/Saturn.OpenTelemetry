@@ -6,7 +6,7 @@ jobs:
       with:
         depth: 0
         token: ${{ secrets.GITHUB_TOKEN}}
-    - uses: DeterminateSystems/nix-installer-action@v14
+    - uses: DeterminateSystems/nix-installer-action@v16
       with:
         diagnostic-endpoint: ''
         source-url: https://install.lix.systems/lix/lix-installer-x86_64-linux
