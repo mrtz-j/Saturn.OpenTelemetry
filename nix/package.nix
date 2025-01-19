@@ -1,4 +1,5 @@
 {
+  lib,
   pname,
   version,
   dotnet-sdk,
@@ -13,8 +14,8 @@ buildDotnetModule {
     dotnet-runtime
     ;
   name = "Saturn.OpenTelemetry";
-  src = ../.;
+  src = lib.cleanSource ../.;
   projectFile = "src/Saturn.OpenTelemetry/Saturn.OpenTelemetry.fsproj";
   doCheck = true;
-  nugetDeps = ./deps.json; # `nix build .#default.fetch-deps && ./result nix/deps.json`
+  nugetDeps = ./deps.json; # `nix-build . -A default.fetch-deps && ./result nix/deps.json`
 }

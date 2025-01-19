@@ -40,15 +40,15 @@
         }
         {
           name = "Restore dependencies";
-          run = "nix -Lv develop .#default --command dotnet restore";
+          run = "nix-shell default.nix -A default --run 'dotnet restore'";
         }
         {
           name = "Build";
-          run = "nix -Lv develop .#default --command dotnet build --no-restore --configuration \${{matrix.config}}";
+          run = "nix-shell default.nix -A default --run 'dotnet build --no-restore --configuration \${{matrix.config}}'";
         }
         {
           name = "Test";
-          run = "nix -Lv develop .#default --command dotnet test --no-build --verbosity normal --configuration \${{matrix.config}}";
+          run = "nix-shell default.nix -A default --run 'dotnet test --no-build --verbosity normal --configuration \${{matrix.config}}'";
         }
       ];
     };
@@ -74,11 +74,11 @@
         }
         {
           name = "Build";
-          run = "nix -Lv build .#default";
+          run = "nix-build default.nix -A default";
         }
         {
           name = "Reproducibility check";
-          run = "nix -Lv build .#default --rebuild";
+          run = "nix-build default.nix -A default --check";
         }
       ];
     };
@@ -106,15 +106,15 @@
         }
         {
           name = "Restore dependencies";
-          run = "nix -Lv develop .#default --command dotnet restore";
+          run = "nix-shell default.nix -A default --run 'dotnet restore'";
         }
         {
           name = "Build";
-          run = "nix -Lv develop .#default --command dotnet build --no-restore --configuration Release";
+          run = "nix-shell default.nix -A default --run 'dotnet build --no-restore --configuration Release'";
         }
         {
           name = "Pack";
-          run = "nix -Lv develop .#default --command dotnet pack --configuration Release";
+          run = "nix-shell default.nix -A default --run 'dotnet pack --configuration Release'";
         }
         {
           name = "Upload NuGet artifact (plugin)";

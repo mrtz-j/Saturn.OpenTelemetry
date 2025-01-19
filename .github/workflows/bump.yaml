@@ -1,0 +1,35 @@
+###
+# This file was automatically generated with nix-actions.
+jobs:
+  npins_update:
+    permissions:
+      actions: write
+      contents: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        depth: 0
+        token: ${{ secrets.GITHUB_TOKEN}}
+    - uses: DeterminateSystems/nix-installer-action@v14
+      with:
+        diagnostic-endpoint: ''
+        source-url: https://install.lix.systems/lix/lix-installer-x86_64-linux
+    - name: Update dependencies
+      run: "nix-shell default.nix -A ci --run \"npins -d ./nix update\"\n"
+    - name: Create PR
+      uses: peter-evans/create-pull-request@v7
+      with:
+        base: main
+        body: "Automatic npins update performed by GitHub Actions\n"
+        branch: npins-auto-update
+        commit-message: 'chore: npins update'
+        delete-branch: true
+        title: 'chore: weekly npins update'
+        token: ${{ secrets.GITHUB_TOKEN }}
+name: Weekly Npins Update
+on:
+  schedule:
+  - cron: 0 0 * * 1
+  workflow_dispatch: {}

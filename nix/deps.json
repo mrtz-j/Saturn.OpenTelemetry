@@ -1,15 +1,5 @@
 [
   {
-    "pname": "dotnet-outdated-tool",
-    "version": "4.6.4",
-    "hash": "sha256-5IL05jnSkSsb7bJr6JFdudRAPju60d28PnkjEl5sUS0="
-  },
-  {
-    "pname": "fantomas",
-    "version": "6.3.16",
-    "hash": "sha256-4tRdYf+/Q1iedx+DDuIKVGlIWQdr6erM51VdKzZkhCs="
-  },
-  {
     "pname": "FSharp.Control.Websockets",
     "version": "0.2.2",
     "hash": "sha256-EAfYPteT1MXcdOTkx3HWsAgIc1e7qi0NqAMsc7+WXuQ="
@@ -31,8 +21,8 @@
   },
   {
     "pname": "FSharp.Core",
-    "version": "9.0.100",
-    "hash": "sha256-V1q3CjbRvWZqxpi6cXD/R0F7pyXGGtH83M5Z/ITDrp8="
+    "version": "9.0.101",
+    "hash": "sha256-bR4PHanvKrzD43qFQxmOmmhhpz+ZmKZMPlgGnlRNcp4="
   },
   {
     "pname": "Giraffe",

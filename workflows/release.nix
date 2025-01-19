@@ -33,15 +33,15 @@
         }
         {
           name = "Restore dependencies";
-          run = "nix -Lv develop .#default --command dotnet restore";
+          run = "nix-shell default.nix -A default --run 'dotnet restore'";
         }
         {
           name = "Build";
-          run = "nix -Lv develop .#default --command dotnet build --no-restore --configuration Release";
+          run = "nix-shell default.nix -A default --run 'dotnet build --no-restore --configuration Release'";
         }
         {
           name = "Pack";
-          run = "nix -Lv develop .#default --command dotnet pack --configuration Release";
+          run = "nix-shell default.nix -A default --run 'dotnet pack --configuration Release'";
         }
         {
           name = "Upload NuGet artifact (plugin)";
@@ -91,16 +91,16 @@
         }
         {
           name = "Prep packages";
-          run = "nix -Lv develop .#default --command dotnet nuget add source --username mrtz-j --password \${{ secrets.NUGET_AUTH_TOKEN }} --store-password-in-clear-text --name github \"https://nuget.pkg.github.com/mrtz-j/index.json\"";
+          run = "nix-shell default.nix -A default --run 'dotnet nuget add source --username mrtz-j --password \${{ secrets.NUGET_AUTH_TOKEN }} --store-password-in-clear-text --name github \"https://nuget.pkg.github.com/mrtz-j/index.json\"'";
         }
         {
           name = "Publish GitHub package";
-          run = "nix -Lv develop .#default --command dotnet nuget push packed/*.nupkg --api-key \${{ secrets.NUGET_AUTH_TOKEN }}  --source \"github\" --skip-duplicate";
+          run = "nix-shell default.nix -A default --run 'dotnet nuget push packed/*.nupkg --api-key \${{ secrets.NUGET_AUTH_TOKEN }}  --source \"github\" --skip-duplicate'";
         }
         {
           name = "Identify .NET";
           id = "identify-dotnet";
-          run = "nix -Lv develop .#default --command bash -c 'echo \"dotnet=$(which dotnet)\" >> $GITHUB_OUTPUT'";
+          run = "nix-shell default.nix -A default --run 'bash -c 'echo \"dotnet=$(which dotnet)\" >> $GITHUB_OUTPUT''";
         }
         {
           name = "Publish NuGet package";
