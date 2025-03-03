@@ -8,9 +8,9 @@
         "repo": "git-hooks.nix"
       },
       "branch": "master",
-      "revision": "94ee657f6032d913fe0ef49adaa743804635b0bb",
-      "url": "https://github.com/cachix/git-hooks.nix/archive/94ee657f6032d913fe0ef49adaa743804635b0bb.tar.gz",
-      "hash": "0gw0xhdxdvli28by80rdbdy8h7smmwhb6kvihawiih8pdk2axwr3"
+      "revision": "42b1ba089d2034d910566bf6b40830af6b8ec732",
+      "url": "https://github.com/cachix/git-hooks.nix/archive/42b1ba089d2034d910566bf6b40830af6b8ec732.tar.gz",
+      "hash": "1073k03y83dlzxa3w719q8z5w8vn1mwa922zg6gdjr31masjzx16"
     },
     "nix-actions": {
       "type": "GitRelease",
@@ -21,16 +21,16 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": null,
-      "version": "v0.4.2",
-      "revision": "6cf7970c0916cc3c05b5289d28ec89b4e35b6e5b",
+      "version": "v0.5.0",
+      "revision": "24c8d9c10683548d481fcd3be5c987fc13254744",
       "url": null,
-      "hash": "0y9z1l1b6g1nj7l3xypbs1fnlad31ny7n8v23n35hd6nbwyslikf"
+      "hash": "1vv5vnhs9yixh6lav8337a2xhki9wgk4d693gdasvf116rq4jarl"
     },
     "nixpkgs": {
       "type": "Channel",
       "name": "nixpkgs-unstable",
-      "url": "https://releases.nixos.org/nixpkgs/nixpkgs-25.05pre739572.041c867bad68/nixexprs.tar.xz",
-      "hash": "1q20wpqany8694vy1rp0zb3kmzf3ds1i09bz273nwf0rfdahidvi"
+      "url": "https://releases.nixos.org/nixpkgs/nixpkgs-25.05pre760927.199169a2135e/nixexprs.tar.xz",
+      "hash": "1wp63gip8in18ngasynyzmhlpvdlz4l9ay16yidw0adimniacfr7"
     }
   },
   "version": 3
