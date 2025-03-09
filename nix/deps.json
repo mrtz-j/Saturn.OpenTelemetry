@@ -6,23 +6,8 @@
   },
   {
     "pname": "FSharp.Core",
-    "version": "4.3.4",
-    "hash": "sha256-styyo+6mJy+yxE0NZG/b1hxkAjPOnJfMgd9zWzCJ5uk="
-  },
-  {
-    "pname": "FSharp.Core",
-    "version": "5.0.0",
-    "hash": "sha256-HYn+BzwplXow+tl9ziT5MHYcMmuWonqczReUxHKaEoM="
-  },
-  {
-    "pname": "FSharp.Core",
-    "version": "6.0.0",
-    "hash": "sha256-aQDRgiGC7iTyzNEmvyd2RBCDcLG0I1dbfncHlkbeUMI="
-  },
-  {
-    "pname": "FSharp.Core",
-    "version": "9.0.101",
-    "hash": "sha256-bR4PHanvKrzD43qFQxmOmmhhpz+ZmKZMPlgGnlRNcp4="
+    "version": "9.0.201",
+    "hash": "sha256-38Y0QFg/knogSJtxDVpVXKo5n4zAo8zaffeT6tbhahk="
   },
   {
     "pname": "Giraffe",
