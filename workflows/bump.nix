@@ -41,7 +41,7 @@
         id = "generate-token";
         "with" = {
           app-id = "\${{ secrets.APP_ID }}";
-          private-key = "\${{ secrets.APP_PRIVATE_KEY }}";
+          private-key = "\${{ secrets.PRIVATE_KEY }}";
         };
       }
       {
