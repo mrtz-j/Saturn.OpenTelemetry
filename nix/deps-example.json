@@ -31,28 +31,8 @@
   },
   {
     "pname": "FSharp.Core",
-    "version": "4.3.4",
-    "hash": "sha256-styyo+6mJy+yxE0NZG/b1hxkAjPOnJfMgd9zWzCJ5uk="
-  },
-  {
-    "pname": "FSharp.Core",
-    "version": "4.7.2",
-    "hash": "sha256-1eDe16w8+syA35AtrSiViMHQYgwBqmdViS4yCa4AMZ8="
-  },
-  {
-    "pname": "FSharp.Core",
-    "version": "5.0.0",
-    "hash": "sha256-HYn+BzwplXow+tl9ziT5MHYcMmuWonqczReUxHKaEoM="
-  },
-  {
-    "pname": "FSharp.Core",
-    "version": "6.0.0",
-    "hash": "sha256-aQDRgiGC7iTyzNEmvyd2RBCDcLG0I1dbfncHlkbeUMI="
-  },
-  {
-    "pname": "FSharp.Core",
-    "version": "9.0.101",
-    "hash": "sha256-bR4PHanvKrzD43qFQxmOmmhhpz+ZmKZMPlgGnlRNcp4="
+    "version": "9.0.201",
+    "hash": "sha256-38Y0QFg/knogSJtxDVpVXKo5n4zAo8zaffeT6tbhahk="
   },
   {
     "pname": "Giraffe",
@@ -338,11 +318,6 @@
     "pname": "Saturn",
     "version": "0.17.0",
     "hash": "sha256-EqrpCpshucb94aFqNnSWT4sD6kdF9DQJkOLvgpz2pAY="
-  },
-  {
-    "pname": "Serilog",
-    "version": "4.0.0",
-    "hash": "sha256-j8hQ5TdL1TjfdGiBO9PyHJFMMPvATHWN1dtrrUZZlNw="
   },
   {
     "pname": "Serilog",

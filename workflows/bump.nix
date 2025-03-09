@@ -37,10 +37,18 @@
         '';
       }
       {
+        uses = "actions/create-github-app-token@v1";
+        id = "generate-token";
+        "with" = {
+          app-id = "\${{ secrets.APP_ID }}";
+          private-key = "\${{ secrets.APP_PRIVATE_KEY }}";
+        };
+      }
+      {
         name = "Create PR";
         uses = "peter-evans/create-pull-request@v7";
         "with" = {
-          token = "\${{ secrets.GITHUB_TOKEN }}";
+          token = "\${{ steps.generate-token.outputs.token }}";
           commit-message = "chore: npins update";
           title = "chore: weekly npins update";
           body = ''

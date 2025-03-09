@@ -74,6 +74,7 @@ in
       pkgs.svu
       pkgs.npins
       pkgs.fantomas
+      pkgs.fsautocomplete
       pkgs.nixfmt-rfc-style
     ];
     DOTNET_CLI_TELEMETRY_OPTOUT = "true";

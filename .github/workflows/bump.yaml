@@ -18,6 +18,11 @@ jobs:
         source-url: https://install.lix.systems/lix/lix-installer-x86_64-linux
     - name: Update dependencies
       run: "nix-shell default.nix -A ci --run \"npins -d ./nix update\"\n"
+    - id: generate-token
+      uses: actions/create-github-app-token@v1
+      with:
+        app-id: ${{ secrets.APP_ID }}
+        private-key: ${{ secrets.APP_PRIVATE_KEY }}
     - name: Create PR
       uses: peter-evans/create-pull-request@v7
       with:
@@ -27,7 +32,7 @@ jobs:
         commit-message: 'chore: npins update'
         delete-branch: true
         title: 'chore: weekly npins update'
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ steps.generate-token.outputs.token }}
 name: Weekly Npins Update
 on:
   schedule:
