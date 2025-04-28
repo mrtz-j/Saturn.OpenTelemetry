@@ -200,10 +200,7 @@ let serviceTags: Metadata =
         "meta.process.pwd", string Environment.CurrentDirectory
         "meta.process.pid", string Environment.ProcessId
         "meta.process.starttime",
-        Process
-            .GetCurrentProcess()
-            .StartTime.ToUniversalTime()
-            .ToString("u")
+        Process.GetCurrentProcess().StartTime.ToUniversalTime().ToString("u")
         "meta.process.command_line", string Environment.CommandLine
         "meta.dotnet.framework.version",
         string System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription
