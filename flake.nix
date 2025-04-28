@@ -77,13 +77,13 @@
           devShells.default = pkgs.mkShell {
             name = "SaturnOpenTelemetry";
 
+            buildInputs = [ dotnet-sdk ];
+
             packages = [
               pkgs.svu
               pkgs.fantomas
               pkgs.fsautocomplete
             ];
-
-            inputFrom = [ config.packages.default ];
 
             DOTNET_CLI_TELEMETRY_OPTOUT = "true";
             DOTNET_ROOT = "${dotnet-sdk.unwrapped}/share/dotnet";
