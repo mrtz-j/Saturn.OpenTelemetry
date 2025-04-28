@@ -1,4 +1,5 @@
-name: "Run nix flake check"
+# yaml-language-server: $schema=https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/github-workflow.json
+name: "Check"
 
 on:
   push:
