@@ -1,0 +1,39 @@
+{
+  "pins": {
+    "git-hooks": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "cachix",
+        "repo": "git-hooks.nix"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "80479b6ec16fefd9c1db3ea13aeb038c60530f46",
+      "url": "https://github.com/cachix/git-hooks.nix/archive/80479b6ec16fefd9c1db3ea13aeb038c60530f46.tar.gz",
+      "hash": "1n8g7msrv6wglarhi7kv2s6szkkg21nkjszdi5gzrnhpc8s7g3nr"
+    },
+    "nix-actions": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "Git",
+        "url": "https://git.dgnum.eu/DGNum/nix-actions.git"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v0.5.1",
+      "revision": "06847b3256df402da0475dccb290832ec92a9f8c",
+      "url": null,
+      "hash": "03s87spp56n1xpd14xp7j84619zpv2xxz1jj83iclzclm1s9j4yv"
+    },
+    "nixpkgs": {
+      "type": "Channel",
+      "name": "nixpkgs-unstable",
+      "url": "https://releases.nixos.org/nixpkgs/nixpkgs-25.11pre801852.3fcbdcfc707e/nixexprs.tar.xz",
+      "hash": "1axizzdkrgzbd7wd3wjisafjnkgvyy8fhiv5zmp5zwi28n0jn0wi"
+    }
+  },
+  "version": 5
+}
