@@ -1,4 +1,4 @@
-[![built with garnix](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fgarnix.io%2Fapi%2Fbadges%2Fmrtz-j%2FSaturn.OpenTelemetry%3Fbranch%3Dmain)](https://garnix.io/repo/mrtz-j/Saturn.OpenTelemetry)
+[![built with nix](https://img.shields.io/badge/built%20with-nix-%235277C3?logo=nixos)](https://nixos.org/)
 
 # Saturn.OpenTelemetry
 
