@@ -8,16 +8,20 @@
   },
   pre-commit ? (import sources.git-hooks).run {
     src = ./.;
+    # Do not run at pre-commit time
+    default_stages = [
+      "pre-push"
+    ];
     hooks = {
-      statix.enable = true;
-
+      statix = {
+        enable = true;
+        settings.ignore = [ "npins/default.nix" ];
+      };
       deadnix = {
         enable = true;
-        excludes = [ "npins" ];
+        excludes = [ "npins/default.nix" ];
       };
-
       nixfmt-rfc-style.enable = true;
-
       fantomas = {
         enable = true;
         name = "fantomas";
@@ -84,6 +88,7 @@ in
       pkgs.svu
       pkgs.npins
 
+      pkgs.dotnet-outdated
       pkgs.fantomas
       pkgs.fsautocomplete
     ];
@@ -92,8 +97,8 @@ in
     DOTNET_ROOT = "${dotnet-sdk.unwrapped}/share/dotnet";
 
     shellHook = ''
-      # ${pre-commit.shellHook}
-      # ${workflows.shellHook}
+      ${pre-commit.shellHook}
+      ${workflows.shellHook}
     '';
   };
 }
