@@ -9,7 +9,7 @@
   };
 
   outputs =
-    { nixpkgs }:
+    { self, nixpkgs }:
     let
       systems = [
         "x86_64-linux"
@@ -24,8 +24,8 @@
           pkgSet = import ./default.nix { pkgs = nixpkgs.legacyPackages."${system}"; };
         in
         {
-          default = pkgSet.atlantis;
-          inherit (pkgSet) serverpack dataagent sorcerer;
+          default = pkgSet.default;
+          inherit (pkgSet) example container;
         }
       );
 

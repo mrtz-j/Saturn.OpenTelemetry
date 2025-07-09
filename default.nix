@@ -19,7 +19,10 @@
       };
       deadnix = {
         enable = true;
-        excludes = [ "npins/default.nix" ];
+        excludes = [
+          "npins/default.nix"
+          "flake.nix"
+        ];
       };
       nixfmt-rfc-style.enable = true;
       fantomas = {
@@ -37,7 +40,7 @@ let
   dotnet-sdk = pkgs.dotnetCorePackages.sdk_9_0;
   dotnet-runtime = pkgs.dotnetCorePackages.runtime_9_0;
 in
-{
+rec {
   default = pkgs.callPackage ./nix/package.nix {
     inherit
       pname
@@ -48,6 +51,23 @@ in
   };
 
   example = pkgs.callPackage ./nix/example.nix { inherit version dotnet-sdk; };
+
+  container = pkgs.dockerTools.buildLayeredImage {
+    name = "Example";
+    tag = version;
+    created = "now";
+    contents = [
+      example
+      pkgs.dockerTools.binSh
+      pkgs.dockerTools.caCertificates
+    ];
+    config = {
+      cmd = [
+        "${example}/bin/Example"
+      ];
+      workingDir = "/app";
+    };
+  };
 
   ci = pkgs.mkShellNoCC {
     name = "CI";
