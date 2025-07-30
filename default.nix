@@ -78,7 +78,7 @@ rec {
     ];
   };
 
-  shell = pkgs.mkShell {
+  shell = pkgs.mkShellNoCC {
     name = "SaturnOpenTelemetry";
 
     buildInputs = [ dotnet-sdk ];

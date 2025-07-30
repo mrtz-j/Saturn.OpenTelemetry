@@ -5,7 +5,6 @@ open System.ComponentModel
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.AspNetCore.Builder
 
-// [<AutoOpen>
 module OpenTelemetry =
     open Saturn
     open OpenTelemetry.Metrics
