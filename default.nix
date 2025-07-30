@@ -35,11 +35,30 @@
   },
 }:
 let
+  # inherit (pkgs.lib)
+  #   isFunction
+  #   mapAttrs'
+  #   nameValuePair
+  #   removeSuffix
+  #   ;
   pname = "SaturnOpenTelemetry";
   version = "0.6.0-alpha";
   dotnet-sdk = pkgs.dotnetCorePackages.sdk_9_0;
   dotnet-runtime = pkgs.dotnetCorePackages.runtime_9_0;
 in
+# workflows = (import sources.nix-actions { inherit pkgs; }).install {
+#   src = ./.;
+#   platform = "github";
+#   workflows = mapAttrs' (
+#     name: _:
+#     nameValuePair (removeSuffix ".nix" name) (
+#       let
+#         w = import ./workflows/${name};
+#       in
+#       if isFunction w then w { inherit (pkgs) lib; } else w
+#     )
+#   ) (builtins.readDir ./workflows);
+# };
 rec {
   default = pkgs.callPackage ./nix/package.nix {
     inherit
@@ -78,7 +97,7 @@ rec {
     ];
   };
 
-  shell = pkgs.mkShellNoCC {
+  shell = pkgs.mkShell {
     name = "SaturnOpenTelemetry";
 
     buildInputs = [ dotnet-sdk ];

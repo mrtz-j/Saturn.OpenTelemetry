@@ -75,7 +75,7 @@ jobs:
       with:
         name: nuget-package
         path: src/Saturn.OpenTelemetry/bin/Release/Saturn.OpenTelemetry.*.nupkg
-name: Build
+name: Release
 on:
   pull_request:
     branches:

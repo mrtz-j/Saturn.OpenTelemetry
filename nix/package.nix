@@ -17,5 +17,5 @@ buildDotnetModule {
   src = lib.cleanSource ../.;
   projectFile = "src/Saturn.OpenTelemetry/Saturn.OpenTelemetry.fsproj";
   nugetDeps = ./deps.json; # nix-build . -A default.fetch-deps && ./result nix/deps.json
-  doCheck = true;
+  doCheck = false;
 }

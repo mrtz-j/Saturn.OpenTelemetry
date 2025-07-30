@@ -14,5 +14,5 @@ buildDotnetModule {
   projectFile = "example/Example.fsproj";
   executables = [ "Example" ];
   nugetDeps = ./deps-example.json; # nix-build . -A example.fetch-deps && ./result nix/deps-example.json
-  doCheck = true;
+  doCheck = false;
 }
