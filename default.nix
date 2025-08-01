@@ -69,20 +69,18 @@ rec {
       ;
   };
 
-  example = pkgs.callPackage ./nix/example.nix { inherit version dotnet-sdk; };
-
   container = pkgs.dockerTools.buildLayeredImage {
     name = "Example";
     tag = version;
     created = "now";
     contents = [
-      example
+      default
       pkgs.dockerTools.binSh
       pkgs.dockerTools.caCertificates
     ];
     config = {
       cmd = [
-        "${example}/bin/Example"
+        "${default}/bin/Example"
       ];
       workingDir = "/app";
     };

@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="example/Example.fsproj" />
+  <Project Path="src/Saturn.OpenTelemetry/Saturn.OpenTelemetry.fsproj" />
+</Solution>
