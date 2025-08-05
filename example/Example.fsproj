@@ -22,5 +22,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\src\Saturn.OpenTelemetry\Saturn.OpenTelemetry.fsproj" />
+    <PackageReference Include="Saturn.OpenTelemetry" Version="*" Condition=" '$(ContinuousIntegrationBuild)'=='true' "/>
   </ItemGroup>
 </Project>

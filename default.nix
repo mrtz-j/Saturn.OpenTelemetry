@@ -6,104 +6,42 @@
     config = { };
     overlays = [ ];
   },
-  pre-commit ? (import sources.git-hooks).run {
-    src = ./.;
-    # Do not run at pre-commit time
-    default_stages = [
-      "pre-push"
-    ];
-    hooks = {
-      statix = {
-        enable = true;
-        settings.ignore = [ "npins/default.nix" ];
-      };
-      deadnix = {
-        enable = true;
-        excludes = [
-          "npins/default.nix"
-          "flake.nix"
-        ];
-      };
-      nixfmt-rfc-style.enable = true;
-      fantomas = {
-        enable = true;
-        name = "fantomas";
-        entry = "${pkgs.fantomas}/bin/fantomas src example";
-        files = "(\\.fs$)|(\\.fsx$)";
-      };
-    };
-  },
+  pre-commit ? import ./nix/pre-commit.nix,
+  workflows ? import ./nix/workflows.nix,
 }:
 let
-  # inherit (pkgs.lib)
-  #   isFunction
-  #   mapAttrs'
-  #   nameValuePair
-  #   removeSuffix
-  #   ;
   pname = "SaturnOpenTelemetry";
   version = "0.6.0-alpha";
   dotnet-sdk = pkgs.dotnetCorePackages.sdk_9_0;
-  dotnet-runtime = pkgs.dotnetCorePackages.runtime_9_0;
-in
-# workflows = (import sources.nix-actions { inherit pkgs; }).install {
-#   src = ./.;
-#   platform = "github";
-#   workflows = mapAttrs' (
-#     name: _:
-#     nameValuePair (removeSuffix ".nix" name) (
-#       let
-#         w = import ./workflows/${name};
-#       in
-#       if isFunction w then w { inherit (pkgs) lib; } else w
-#     )
-#   ) (builtins.readDir ./workflows);
-# };
-rec {
-  default = pkgs.callPackage ./nix/package.nix {
+  dotnet-runtime = pkgs.dotnetCorePackages.aspnetcore_9_0;
+  packages = import ./nix/packages {
     inherit
+      pkgs
       pname
       version
       dotnet-sdk
       dotnet-runtime
       ;
   };
+in
+rec {
+  inherit packages;
 
-  container = pkgs.dockerTools.buildLayeredImage {
-    name = "Example";
-    tag = version;
-    created = "now";
-    contents = [
-      default
-      pkgs.dockerTools.binSh
-      pkgs.dockerTools.caCertificates
-    ];
-    config = {
-      cmd = [
-        "${default}/bin/Example"
-      ];
-      workingDir = "/app";
-    };
-  };
+  default = packages.saturn-opentelemetry;
 
-  ci = pkgs.mkShellNoCC {
-    name = "CI";
-
-    packages = [
-      pkgs.npins
-      pkgs.svu
-    ];
+  containers = pkgs.callPackage ./nix/containers.nix {
+    inherit (packages)
+      example
+      ;
+    inherit
+      version
+      ;
   };
 
   shell = pkgs.mkShell {
-    name = "SaturnOpenTelemetry";
-
     buildInputs = [ dotnet-sdk ];
 
     packages = [
-      pkgs.svu
-      pkgs.npins
-
       pkgs.dotnet-outdated
       pkgs.fantomas
       pkgs.fsautocomplete
@@ -114,6 +52,17 @@ rec {
 
     shellHook = ''
       ${pre-commit.shellHook}
+      ${workflows.shellHook}
     '';
+
+    passthru = pkgs.lib.mapAttrs (name: value: pkgs.mkShellNoCC (value // { inherit name; })) {
+      pre-commit.shellHook = pre-commit.shellHook;
+      workflows.shellHook = workflows.shellHook;
+      dotnet-shell.packages = [ dotnet-sdk ];
+      npins-update.packages = [
+        pkgs.npins
+        pkgs.svu
+      ];
+    };
   };
 }

@@ -1,8 +1,11 @@
+{ nix-actions, ... }:
+let
+  inherit (nix-actions.lib) nix-shell secret expr;
+in
 {
-  name = "Build";
+  name = "Release";
   on = {
     push.branches = [ "main" ];
-    pull_request.branches = [ "main" ];
   };
   env = {
     FORCE_COLOR = "1";
@@ -28,30 +31,45 @@
         }
         {
           name = "Install Nix";
-          uses = "cachix/install-nix-action@V31";
+          uses = "DeterminateSystems/nix-installer-action@main";
+          "with" = {
+            github-token = secret "GITHUB_TOKEN";
+            diagnostic-endpoint = "";
+            source-url = "https://install.lix.systems/lix/lix-installer-x86_64-linux";
+          };
         }
         {
           name = "Set up cachix";
           uses = "cachix/cachix-action@v16";
           "with" = {
             name = "saturnopentelemetry";
-            authToken = "\${{ secrets.CACHIX_AUTH_TOKEN }}";
+            authToken = secret "CACHIX_AUTH_TOKEN";
           };
         }
         {
           name = "Restore dependencies";
-          run = "nix-shell default.nix -A default --run 'dotnet restore'";
+          run = nix-shell {
+            script = "dotnet restore";
+            shell = "dotnet-shell";
+          };
         }
         {
           name = "Build";
-          run = "nix-shell default.nix -A default --run 'dotnet build --no-restore --configuration \${{matrix.config}}'";
+          run = nix-shell {
+            script = "dotnet build --no-restore --configuration ${expr "matrix.config"}";
+            shell = "dotnet-shell";
+          };
         }
         {
           name = "Test";
-          run = "nix-shell default.nix -A default --run 'dotnet test --no-build --verbosity normal --configuration \${{matrix.config}}'";
+          run = nix-shell {
+            script = "dotnet test --no-build --verbosity normal --configuration ${expr "matrix.config"}";
+            shell = "dotnet-shell";
+          };
         }
       ];
     };
+
     build-nix = {
       runs-on = "ubuntu-latest";
       steps = [
@@ -61,14 +79,19 @@
         }
         {
           name = "Install Nix";
-          uses = "cachix/install-nix-action@V31";
+          uses = "DeterminateSystems/nix-installer-action@main";
+          "with" = {
+            github-token = secret "GITHUB_TOKEN";
+            diagnostic-endpoint = "";
+            source-url = "https://install.lix.systems/lix/lix-installer-x86_64-linux";
+          };
         }
         {
           name = "Set up cachix";
           uses = "cachix/cachix-action@v16";
           "with" = {
             name = "saturnopentelemetry";
-            authToken = "\${{ secrets.CACHIX_AUTH_TOKEN }}";
+            authToken = secret "CACHIX_AUTH_TOKEN";
           };
         }
         {
@@ -81,6 +104,7 @@
         }
       ];
     };
+
     nuget-pack = {
       runs-on = "ubuntu-latest";
       steps = [
@@ -92,27 +116,41 @@
         }
         {
           name = "Install Nix";
-          uses = "cachix/install-nix-action@V31";
+          uses = "DeterminateSystems/nix-installer-action@main";
+          "with" = {
+            github-token = secret "GITHUB_TOKEN";
+            diagnostic-endpoint = "";
+            source-url = "https://install.lix.systems/lix/lix-installer-x86_64-linux";
+          };
         }
         {
           name = "Set up cachix";
           uses = "cachix/cachix-action@v16";
           "with" = {
             name = "saturnopentelemetry";
-            authToken = "\${{ secrets.CACHIX_AUTH_TOKEN }}";
+            authToken = secret "CACHIX_AUTH_TOKEN";
           };
         }
         {
           name = "Restore dependencies";
-          run = "nix-shell default.nix -A default --run 'dotnet restore'";
+          run = nix-shell {
+            script = "dotnet restore";
+            shell = "dotnet-shell";
+          };
         }
         {
           name = "Build";
-          run = "nix-shell default.nix -A default --run 'dotnet build --no-restore --configuration Release'";
+          run = nix-shell {
+            script = "dotnet build --no-restore --configuration Release";
+            shell = "dotnet-shell";
+          };
         }
         {
           name = "Pack";
-          run = "nix-shell default.nix -A default --run 'dotnet pack --configuration Release'";
+          run = nix-shell {
+            script = "dotnet pack --configuration Release";
+            shell = "dotnet-shell";
+          };
         }
         {
           name = "Upload NuGet artifact (plugin)";
