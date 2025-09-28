@@ -1,11 +1,6 @@
 let
-  sources = import ../npins;
-  system = builtins.currentSystem;
-  pkgs = import sources.nixpkgs {
-    inherit system;
-    config = { };
-    overlays = [ ];
-  };
+  sources = import ../lon.nix;
+  pkgs = import sources.nixpkgs { };
   pre-commit = import sources.git-hooks;
 in
 pre-commit.run {
@@ -17,12 +12,12 @@ pre-commit.run {
   hooks = {
     statix = {
       enable = true;
-      settings.ignore = [ "npins/default.nix" ];
+      settings.ignore = [ "lon.nix" ];
     };
     deadnix = {
       enable = true;
       excludes = [
-        "npins/default.nix"
+        "lon.nix"
       ];
     };
     nixfmt-rfc-style.enable = true;

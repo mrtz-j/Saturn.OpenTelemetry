@@ -1,0 +1,35 @@
+{
+  "version": "1",
+  "sources": {
+    "git-hooks": {
+      "type": "GitHub",
+      "fetchType": "tarball",
+      "owner": "cachix",
+      "repo": "git-hooks.nix",
+      "branch": "master",
+      "revision": "9c52372878df6911f9afc1e2a1391f55e4dfc864",
+      "url": "https://github.com/cachix/git-hooks.nix/archive/9c52372878df6911f9afc1e2a1391f55e4dfc864.tar.gz",
+      "hash": "sha256-c6yg0EQ9xVESx6HGDOCMcyRSjaTpNJP10ef+6fRcofA="
+    },
+    "nix-actions": {
+      "type": "Git",
+      "fetchType": "git",
+      "branch": "main",
+      "revision": "06847b3256df402da0475dccb290832ec92a9f8c",
+      "url": "https://git.dgnum.eu/DGNum/nix-actions.git",
+      "hash": "sha256-2xOZdKiUfcriQFKG37vY96dgCJLndhLa7cGacq8+SA8=",
+      "lastModified": 1746294989,
+      "submodules": false
+    },
+    "nixpkgs": {
+      "type": "GitHub",
+      "fetchType": "tarball",
+      "owner": "NixOS",
+      "repo": "nixpkgs",
+      "branch": "nixpkgs-unstable",
+      "revision": "1ef586712f85",
+      "url": "https://github.com/NixOS/nixpkgs/archive/1ef586712f85.tar.gz",
+      "hash": "sha256-aKmIQcvT857VRc3XbLvsuMdLeUuYfz+8zQ4eTXe78KE="
+    }
+  }
+}

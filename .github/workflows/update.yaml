@@ -21,19 +21,12 @@ jobs:
         source-url: https://install.lix.systems/lix/lix-installer-x86_64-linux
     - name: Set up Cache
       uses: DeterminateSystems/magic-nix-cache-action@main
-    - name: Update dependencies
-      run: "nix-shell -A npins-update --run 'set -o pipefail\nset -o nounset\nset
-        -o errexit\nnpins update'"
-    - name: Create PR
-      uses: peter-evans/create-pull-request@v7
-      with:
-        base: main
-        body: "Automatic npins update performed by GitHub Actions\n"
-        branch: npins-auto-update
-        commit-message: 'chore: npins update'
-        delete-branch: true
-        title: 'chore: weekly npins update'
-        token: ${{ github.token }}
+    - env:
+        LON_LABELS: bot
+        LON_LIST_COMMITS: true
+        LON_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: "nix-shell -A lon-update --run 'set -o pipefail\nset -o nounset\nset -o
+        errexit\nlon bot github'"
 name: Update dependencies
 on:
   schedule:

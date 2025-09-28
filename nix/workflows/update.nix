@@ -1,6 +1,6 @@
 { nix-actions, ... }:
 let
-  inherit (nix-actions.lib) nix-shell secret expr;
+  inherit (nix-actions.lib) nix-shell secret;
 in
 {
   name = "Update dependencies";
@@ -43,10 +43,15 @@ in
           uses = "DeterminateSystems/magic-nix-cache-action@main";
         }
         {
-          name = "Update dependencies";
+          env = {
+            LON_TOKEN = secret "GITHUB_TOKEN";
+            LON_LABELS = "bot";
+            LON_LIST_COMMITS = true;
+          };
+
           run = nix-shell {
-            script = "npins update";
-            shell = "npins-update";
+            script = "lon bot github";
+            shell = "lon-update";
           };
         }
         # TODO: Currently broken in pipeline :/
@@ -58,21 +63,7 @@ in
         #   name = "Update dotnet deps";
         #   run = "./result nix/packages/deps.json";
         # }
-        {
-          name = "Create PR";
-          uses = "peter-evans/create-pull-request@v7";
-          "with" = {
-            token = expr "github.token";
-            commit-message = "chore: npins update";
-            title = "chore: weekly npins update";
-            body = ''
-              Automatic npins update performed by GitHub Actions
-            '';
-            branch = "npins-auto-update";
-            delete-branch = true;
-            base = "main";
-          };
-        }
+        # }
       ];
     };
   };

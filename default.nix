@@ -1,11 +1,6 @@
 {
-  sources ? import ./npins,
-  system ? builtins.currentSystem,
-  pkgs ? import sources.nixpkgs {
-    inherit system;
-    config = { };
-    overlays = [ ];
-  },
+  sources ? import ./lon.nix,
+  pkgs ? import sources.nixpkgs { },
   pre-commit ? import ./nix/pre-commit.nix,
   workflows ? import ./nix/workflows.nix,
 }:
@@ -50,17 +45,12 @@ rec {
     DOTNET_CLI_TELEMETRY_OPTOUT = "true";
     DOTNET_ROOT = "${dotnet-sdk.unwrapped}/share/dotnet";
 
-    shellHook = ''
-      ${pre-commit.shellHook}
-      ${workflows.shellHook}
-    '';
-
     passthru = pkgs.lib.mapAttrs (name: value: pkgs.mkShellNoCC (value // { inherit name; })) {
       pre-commit.shellHook = pre-commit.shellHook;
       workflows.shellHook = workflows.shellHook;
       dotnet-shell.packages = [ dotnet-sdk ];
-      npins-update.packages = [
-        pkgs.npins
+      lon-update.packages = [
+        pkgs.lon
         pkgs.svu
       ];
     };

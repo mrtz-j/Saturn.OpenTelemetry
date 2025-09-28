@@ -1,13 +1,8 @@
 let
-  sources = import ../npins;
-  system = builtins.currentSystem;
-  pkgs = import sources.nixpkgs {
-    inherit system;
-    config = { };
-    overlays = [ ];
-  };
+  sources = import ../lon.nix;
+  pkgs = import sources.nixpkgs { };
   nix-actions = import sources.nix-actions { inherit pkgs; };
-  lib = pkgs.lib;
+  inherit (pkgs) lib;
 in
 nix-actions.install {
   src = ../.;
