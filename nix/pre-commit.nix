@@ -1,5 +1,5 @@
 let
-  sources = import ../lon.nix;
+  sources = import ../npins;
   pkgs = import sources.nixpkgs { };
   pre-commit = import sources.git-hooks;
 in
@@ -12,12 +12,12 @@ pre-commit.run {
   hooks = {
     statix = {
       enable = true;
-      settings.ignore = [ "lon.nix" ];
+      settings.ignore = [ "npins/default.nix" ];
     };
     deadnix = {
       enable = true;
       excludes = [
-        "lon.nix"
+        "npins/default.nix"
       ];
     };
     nixfmt-rfc-style.enable = true;

@@ -1,5 +1,5 @@
 {
-  sources ? import ./lon.nix,
+  sources ? import ./npins,
   pkgs ? import sources.nixpkgs { },
   pre-commit ? import ./nix/pre-commit.nix,
   workflows ? import ./nix/workflows.nix,
@@ -19,19 +19,8 @@ let
       ;
   };
 in
-rec {
-  inherit packages;
-
+{
   default = packages.saturn-opentelemetry;
-
-  containers = pkgs.callPackage ./nix/containers.nix {
-    inherit (packages)
-      example
-      ;
-    inherit
-      version
-      ;
-  };
 
   shell = pkgs.mkShell {
     buildInputs = [ dotnet-sdk ];
@@ -40,6 +29,7 @@ rec {
       pkgs.dotnet-outdated
       pkgs.fantomas
       pkgs.fsautocomplete
+      pkgs.npins
     ];
 
     DOTNET_CLI_TELEMETRY_OPTOUT = "true";
@@ -49,10 +39,6 @@ rec {
       pre-commit.shellHook = pre-commit.shellHook;
       workflows.shellHook = workflows.shellHook;
       dotnet-shell.packages = [ dotnet-sdk ];
-      lon-update.packages = [
-        pkgs.lon
-        pkgs.svu
-      ];
     };
   };
 }
