@@ -5,5 +5,7 @@ result-*
 .idea/
 .env
 out/
+*.sarif
 **/bin
 **/obj
+.analyzerpackages

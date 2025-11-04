@@ -23,6 +23,11 @@ let
       dotnet-runtime
       ;
   };
+  fsharp-analyzers = pkgs.buildDotnetGlobalTool {
+    pname = "fsharp-analyzers";
+    version = "0.33.1 ";
+    nugetHash = "sha256-vYXvqnf3en487svFv3CmNl24SolwMYzu6zKKGXNxSu8=";
+  };
 in
 {
   default = packages.saturn-opentelemetry;
@@ -35,16 +40,24 @@ in
       pkgs.fantomas
       pkgs.fsautocomplete
       pkgs.npins
+      fsharp-analyzers
     ];
 
     DOTNET_CLI_TELEMETRY_OPTOUT = "true";
     DOTNET_ROOT = "${dotnet-sdk.unwrapped}/share/dotnet";
     NPINS_DIRECTORY = "nix";
 
+    shellHook = builtins.concatStringsSep "\n" [
+      pre-commit.shellHook
+      workflows.shellHook
+      "unset shellHook # do not contaminate nested shells"
+    ];
+
     passthru = pkgs.lib.mapAttrs (name: value: pkgs.mkShellNoCC (value // { inherit name; })) {
-      pre-commit.shellHook = pre-commit.shellHook;
-      workflows.shellHook = workflows.shellHook;
-      dotnet-shell.packages = [ dotnet-sdk ];
+      dotnet-shell.packages = [
+        dotnet-sdk
+        pkgs.bash
+      ];
     };
   };
 }

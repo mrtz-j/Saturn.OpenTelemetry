@@ -31,7 +31,7 @@ in
         }
         {
           name = "Install Nix";
-          uses = "DeterminateSystems/nix-installer-action@main";
+          uses = "DeterminateSystems/nix-installer-action@v20";
           "with" = {
             github-token = secret "GITHUB_TOKEN";
             diagnostic-endpoint = "";
@@ -78,7 +78,7 @@ in
         }
         {
           name = "Install Nix";
-          uses = "DeterminateSystems/nix-installer-action@main";
+          uses = "DeterminateSystems/nix-installer-action@v20";
           "with" = {
             github-token = secret "GITHUB_TOKEN";
             diagnostic-endpoint = "";

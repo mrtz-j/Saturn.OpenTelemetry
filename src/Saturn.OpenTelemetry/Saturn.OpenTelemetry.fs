@@ -31,6 +31,7 @@ module OpenTelemetry =
     module State =
         type Empty = | Init
 
+        [<Struct>]
         type Settings = {
             OtelConfig: OtelConfig
             UseRedis: bool option

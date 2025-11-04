@@ -311,6 +311,6 @@ let enrichIdb (activity: Activity) (command: Data.IDbCommand) =
         "db.operation", string command.CommandType
         "db.connection_string", command.Connection.ConnectionString
         "db.parameters_count", command.Parameters.Count.ToString()
-        "db.transaction_active", (command.Transaction <> null).ToString()
+        "db.transaction_active", (not (isNull command.Transaction)).ToString()
         "db.command_timeout", command.CommandTimeout.ToString()
     ]
