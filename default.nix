@@ -1,6 +1,11 @@
 {
-  sources ? import ./npins,
-  pkgs ? import sources.nixpkgs { },
+  sources ? import ./nix,
+  system ? builtins.currentSystem,
+  pkgs ? import sources.nixpkgs {
+    inherit system;
+    config = { };
+    overlays = [ ];
+  },
   pre-commit ? import ./nix/pre-commit.nix,
   workflows ? import ./nix/workflows.nix,
 }:
@@ -34,6 +39,7 @@ in
 
     DOTNET_CLI_TELEMETRY_OPTOUT = "true";
     DOTNET_ROOT = "${dotnet-sdk.unwrapped}/share/dotnet";
+    NPINS_DIRECTORY = "nix";
 
     passthru = pkgs.lib.mapAttrs (name: value: pkgs.mkShellNoCC (value // { inherit name; })) {
       pre-commit.shellHook = pre-commit.shellHook;
