@@ -170,9 +170,9 @@ module OpenTelemetry =
                                         config.OtelConfig.Version
                                     )
                             )
+                            .AddMeter("System.Runtime")
                             .AddAspNetCoreInstrumentation()
                             .AddHttpClientInstrumentation()
-                            .AddRuntimeInstrumentation()
                             .AddProcessInstrumentation()
                             .AddOtlpExporter(fun opt ->
                                 opt.Endpoint <- new Uri(config.OtelConfig.Endpoint)
