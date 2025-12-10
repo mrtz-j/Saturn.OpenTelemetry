@@ -50,21 +50,21 @@ in
           name = "Restore dependencies";
           run = nix-shell {
             script = "dotnet restore";
-            shell = "dotnet-shell";
+            shell = "ci-shell";
           };
         }
         {
           name = "Build";
           run = nix-shell {
             script = "dotnet build --no-restore --configuration ${expr "matrix.config"}";
-            shell = "dotnet-shell";
+            shell = "ci-shell";
           };
         }
         {
           name = "Test";
           run = nix-shell {
             script = "dotnet test --no-build --verbosity normal --configuration ${expr "matrix.config"}";
-            shell = "dotnet-shell";
+            shell = "ci-shell";
           };
         }
       ];

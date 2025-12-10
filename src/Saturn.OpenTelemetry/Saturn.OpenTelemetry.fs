@@ -90,10 +90,10 @@ module OpenTelemetry =
         [<CustomOperation("use_otel")>]
         member this.UseOtel (state, config: State.Settings) =
             if
-                String.IsNullOrEmpty(config.OtelConfig.Endpoint)
-                || String.IsNullOrEmpty(config.OtelConfig.AppId)
-                || String.IsNullOrEmpty(config.OtelConfig.Version)
-                || String.IsNullOrEmpty(config.OtelConfig.Namespace)
+                String.IsNullOrEmpty config.OtelConfig.Endpoint
+                || String.IsNullOrEmpty config.OtelConfig.AppId
+                || String.IsNullOrEmpty config.OtelConfig.Version
+                || String.IsNullOrEmpty config.OtelConfig.Namespace
             then
                 failwith
                     "OpenTelemetry configuration is not provided or incomplete. Please use the 'settings' operation to configure OpenTelemetry."
@@ -150,8 +150,6 @@ module OpenTelemetry =
                             config.UseEfCore
                             |> Option.iter (fun _ ->
                                 tra.AddEntityFrameworkCoreInstrumentation(fun opt ->
-                                    opt.SetDbStatementForText <- true
-                                    opt.SetDbStatementForStoredProcedure <- true
                                     opt.EnrichWithIDbCommand <- Telemetry.enrichIdb
                                 )
                                 |> ignore
@@ -180,7 +178,7 @@ module OpenTelemetry =
                             )
                         |> (fun met ->
                             config.UseOpenFga
-                            |> Option.iter (fun _ -> met.AddMeter(Metrics.Name) |> ignore)
+                            |> Option.iter (fun _ -> met.AddMeter Metrics.Name |> ignore)
                             met
                         )
                         |> ignore

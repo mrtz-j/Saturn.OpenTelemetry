@@ -1,5 +1,5 @@
 let
-  sources = import ../nix;
+  sources = import ../npins;
   pkgs = import sources.nixpkgs { };
   nix-actions = import sources.nix-actions { inherit pkgs; };
   inherit (pkgs) lib;

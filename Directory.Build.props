@@ -5,6 +5,7 @@
     <NetCoreTargetingPackRoot>[UNDEFINED]</NetCoreTargetingPackRoot>
     <DisableImplicitLibraryPacksFolder>true</DisableImplicitLibraryPacksFolder>
     <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
+    <AllowMissingPrunePackageData>true</AllowMissingPrunePackageData>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DebugType>embedded</DebugType>
     <WarnOn>FS3388,FS3559</WarnOn>

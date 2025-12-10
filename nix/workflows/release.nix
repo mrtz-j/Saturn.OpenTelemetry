@@ -50,21 +50,21 @@ in
           name = "Restore dependencies";
           run = nix-shell {
             script = "dotnet restore";
-            shell = "dotnet-shell";
+            shell = "ci-shell";
           };
         }
         {
           name = "Build";
           run = nix-shell {
             script = "dotnet build --no-restore --configuration ${expr "matrix.config"}";
-            shell = "dotnet-shell";
+            shell = "ci-shell";
           };
         }
         {
           name = "Test";
           run = nix-shell {
             script = "dotnet test --no-build --verbosity normal --configuration ${expr "matrix.config"}";
-            shell = "dotnet-shell";
+            shell = "ci-shell";
           };
         }
       ];
@@ -135,21 +135,21 @@ in
           name = "Restore dependencies";
           run = nix-shell {
             script = "dotnet restore";
-            shell = "dotnet-shell";
+            shell = "ci-shell";
           };
         }
         {
           name = "Build";
           run = nix-shell {
             script = "dotnet build --no-restore --configuration Release";
-            shell = "dotnet-shell";
+            shell = "ci-shell";
           };
         }
         {
           name = "Pack";
           run = nix-shell {
             script = "dotnet pack --configuration Release";
-            shell = "dotnet-shell";
+            shell = "ci-shell";
           };
         }
         {
@@ -168,7 +168,7 @@ in
       needs = [ "nuget-pack" ];
       permissions = {
         id-token = "write";
-        # attestations = "write";
+        attestations = "write";
         contents = "read";
       };
       steps = [
@@ -207,22 +207,22 @@ in
           name = "Prep packages";
           run = nix-shell {
             script = "dotnet nuget add source --username mrtz-j --password \${{ secrets.NUGET_AUTH_TOKEN }} --store-password-in-clear-text --name github \"https://nuget.pkg.github.com/mrtz-j/index.json\"";
-            shell = "dotnet-shell";
+            shell = "ci-shell";
           };
         }
         {
           name = "Publish GitHub package";
           run = nix-shell {
             script = "dotnet nuget push packed/*.nupkg --api-key \${{ secrets.NUGET_AUTH_TOKEN }}  --source \"github\" --skip-duplicate";
-            shell = "dotnet-shell";
+            shell = "ci-shell";
           };
         }
         {
           name = "Identify .NET";
           id = "identify-dotnet";
           run = nix-shell {
-            script = "bash -c 'echo \"dotnet=$(which dotnet)\" >> $GITHUB_OUTPUT";
-            shell = "dotnet-shell";
+            script = "bash -c 'echo \"dotnet=$(which dotnet)\" >> $GITHUB_OUTPUT'";
+            shell = "ci-shell";
           };
         }
         {

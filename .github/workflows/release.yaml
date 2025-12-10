@@ -26,15 +26,15 @@ jobs:
         authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
         name: saturnopentelemetry
     - name: Restore dependencies
-      run: "nix-shell -A dotnet-shell --run 'set -o pipefail\nset -o nounset\nset
-        -o errexit\ndotnet restore'"
+      run: "nix-shell -A ci-shell --run 'set -o pipefail\nset -o nounset\nset -o errexit\n\
+        dotnet restore'"
     - name: Build
-      run: "nix-shell -A dotnet-shell --run 'set -o pipefail\nset -o nounset\nset
-        -o errexit\ndotnet build --no-restore --configuration ${{ matrix.config }}'"
+      run: "nix-shell -A ci-shell --run 'set -o pipefail\nset -o nounset\nset -o errexit\n\
+        dotnet build --no-restore --configuration ${{ matrix.config }}'"
     - name: Test
-      run: "nix-shell -A dotnet-shell --run 'set -o pipefail\nset -o nounset\nset
-        -o errexit\ndotnet test --no-build --verbosity normal --configuration ${{
-        matrix.config }}'"
+      run: "nix-shell -A ci-shell --run 'set -o pipefail\nset -o nounset\nset -o errexit\n\
+        dotnet test --no-build --verbosity normal --configuration ${{ matrix.config
+        }}'"
     strategy:
       matrix:
         config:
@@ -93,14 +93,14 @@ jobs:
         authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
         name: saturnopentelemetry
     - name: Restore dependencies
-      run: "nix-shell -A dotnet-shell --run 'set -o pipefail\nset -o nounset\nset
-        -o errexit\ndotnet restore'"
+      run: "nix-shell -A ci-shell --run 'set -o pipefail\nset -o nounset\nset -o errexit\n\
+        dotnet restore'"
     - name: Build
-      run: "nix-shell -A dotnet-shell --run 'set -o pipefail\nset -o nounset\nset
-        -o errexit\ndotnet build --no-restore --configuration Release'"
+      run: "nix-shell -A ci-shell --run 'set -o pipefail\nset -o nounset\nset -o errexit\n\
+        dotnet build --no-restore --configuration Release'"
     - name: Pack
-      run: "nix-shell -A dotnet-shell --run 'set -o pipefail\nset -o nounset\nset
-        -o errexit\ndotnet pack --configuration Release'"
+      run: "nix-shell -A ci-shell --run 'set -o pipefail\nset -o nounset\nset -o errexit\n\
+        dotnet pack --configuration Release'"
     - name: Upload NuGet artifact (plugin)
       uses: actions/upload-artifact@v4
       with:
@@ -110,6 +110,7 @@ jobs:
     needs:
     - nuget-pack
     permissions:
+      attestations: write
       contents: read
       id-token: write
     runs-on: ubuntu-latest
@@ -134,18 +135,18 @@ jobs:
         name: nuget-package
         path: packed
     - name: Prep packages
-      run: "nix-shell -A dotnet-shell --run 'set -o pipefail\nset -o nounset\nset
-        -o errexit\ndotnet nuget add source --username mrtz-j --password ${{ secrets.NUGET_AUTH_TOKEN
+      run: "nix-shell -A ci-shell --run 'set -o pipefail\nset -o nounset\nset -o errexit\n\
+        dotnet nuget add source --username mrtz-j --password ${{ secrets.NUGET_AUTH_TOKEN
         }} --store-password-in-clear-text --name github \"https://nuget.pkg.github.com/mrtz-j/index.json\"\
         '"
     - name: Publish GitHub package
-      run: "nix-shell -A dotnet-shell --run 'set -o pipefail\nset -o nounset\nset
-        -o errexit\ndotnet nuget push packed/*.nupkg --api-key ${{ secrets.NUGET_AUTH_TOKEN
-        }}  --source \"github\" --skip-duplicate'"
+      run: "nix-shell -A ci-shell --run 'set -o pipefail\nset -o nounset\nset -o errexit\n\
+        dotnet nuget push packed/*.nupkg --api-key ${{ secrets.NUGET_AUTH_TOKEN }}\
+        \  --source \"github\" --skip-duplicate'"
     - id: identify-dotnet
       name: Identify .NET
-      run: "nix-shell -A dotnet-shell --run 'set -o pipefail\nset -o nounset\nset
-        -o errexit\nbash -c '\\''echo \"dotnet=$(which dotnet)\" >> $GITHUB_OUTPUT'"
+      run: "nix-shell -A ci-shell --run 'set -o pipefail\nset -o nounset\nset -o errexit\n\
+        bash -c '\\''echo \"dotnet=$(which dotnet)\" >> $GITHUB_OUTPUT'\\'''"
     - name: Publish NuGet package
       uses: 
         G-Research/common-actions/publish-nuget@2b7dc49cb14f3344fbe6019c14a31165e258c059
