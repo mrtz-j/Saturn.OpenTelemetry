@@ -2,9 +2,13 @@ let
   sources = import ../npins;
   pkgs = import sources.nixpkgs { };
   pre-commit = import sources.git-hooks;
+
+  globalExcludes = [
+    "npins/default.nix"
+  ];
 in
 pre-commit.run {
-  src = ./.;
+  src = pkgs.nix-gitignore.gitignoreSource [ ] ./.;
   # Do not run at pre-commit time
   default_stages = [
     "pre-push"
@@ -13,15 +17,17 @@ pre-commit.run {
   hooks = {
     statix = {
       enable = true;
-      settings.ignore = [ "npins/default.nix" ];
+      settings.ignore = globalExcludes;
+      excludes = globalExcludes;
     };
     deadnix = {
       enable = true;
-      excludes = [
-        "npins/default.nix"
-      ];
+      excludes = globalExcludes;
     };
-    nixfmt-rfc-style.enable = true;
+    nixfmt-rfc-style = {
+      enable = true;
+      excludes = globalExcludes;
+    };
     fantomas = {
       enable = true;
       name = "fantomas";

@@ -41,25 +41,52 @@ jobs:
         - Release
         - Debug
   build-nix:
+    needs:
+    - eval
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+    - uses: actions/checkout@v6
+      with:
+        fetch-depth: 0
     - name: Install Nix
-      uses: DeterminateSystems/nix-installer-action@v20
+      uses: samueldr/lix-gha-installer-action@v2025-10-27
+    - name: Set up cache
+      uses: DeterminateSystems/magic-nix-cache-action@v13
       with:
         diagnostic-endpoint: ''
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        source-url: https://install.lix.systems/lix/lix-installer-x86_64-linux
-    - name: Set up cachix
-      uses: cachix/cachix-action@v16
-      with:
-        authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-        name: saturnopentelemetry
-    - name: Build
-      run: nix-build default.nix -A default
+    - if: ${{ ! matrix.derivation.isCached }}
+      name: Build ${{ matrix.derivation.attr }}
+      run: nix-build default.nix -A ${{ matrix.derivation.attr }}
     - name: Reproducibility check
       run: nix-build default.nix -A default --check
+    strategy:
+      matrix:
+        derivation: ${{ fromJson(needs.eval.outputs.sdout) }}
+  build-nix-status:
+    if: always()
+    needs:
+    - build-nix
+    runs-on: ubuntu-latest
+    steps:
+    - run: ${{ !contains(needs.build.result, 'failure') }}
+  eval:
+    outputs:
+      stdout: ${{ steps.nix-eval-jobs.outputs.stdout }}
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v6
+      with:
+        fetch-depth: 0
+    - name: Install Nix
+      uses: samueldr/lix-gha-installer-action@v2025-10-27
+    - name: Set up cache
+      uses: DeterminateSystems/magic-nix-cache-action@v13
+      with:
+        diagnostic-endpoint: ''
+    - id: nix-eval-jobs
+      name: Run nix-eval-jobs
+      run: "   {\n  echo 'stdout<<EOF'\n  nix-shell -A ci-shell --run eval\n  echo
+        'EOF'\n} >> \"$GITHUB_OUTPUT\"\n"
 name: Build
 on:
   pull_request:

@@ -8,4 +8,4 @@ out/
 *.sarif
 **/bin
 **/obj
-.analyzerpackages
+packages/*
