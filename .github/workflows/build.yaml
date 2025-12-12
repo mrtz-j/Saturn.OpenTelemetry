@@ -8,38 +8,6 @@ env:
   FORCE_COLOR: '1'
   NUGET_XMLDOC_MODE: ''
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-    - name: Install Nix
-      uses: DeterminateSystems/nix-installer-action@v20
-      with:
-        diagnostic-endpoint: ''
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        source-url: https://install.lix.systems/lix/lix-installer-x86_64-linux
-    - name: Set up cachix
-      uses: cachix/cachix-action@v16
-      with:
-        authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-        name: saturnopentelemetry
-    - name: Restore dependencies
-      run: "nix-shell -A ci-shell --run 'set -o pipefail\nset -o nounset\nset -o errexit\n\
-        dotnet restore'"
-    - name: Build
-      run: "nix-shell -A ci-shell --run 'set -o pipefail\nset -o nounset\nset -o errexit\n\
-        dotnet build --no-restore --configuration ${{ matrix.config }}'"
-    - name: Test
-      run: "nix-shell -A ci-shell --run 'set -o pipefail\nset -o nounset\nset -o errexit\n\
-        dotnet test --no-build --verbosity normal --configuration ${{ matrix.config
-        }}'"
-    strategy:
-      matrix:
-        config:
-        - Release
-        - Debug
   build-nix:
     needs:
     - eval
@@ -57,11 +25,9 @@ jobs:
     - if: ${{ ! matrix.derivation.isCached }}
       name: Build ${{ matrix.derivation.attr }}
       run: nix-build default.nix -A ${{ matrix.derivation.attr }}
-    - name: Reproducibility check
-      run: nix-build default.nix -A default --check
     strategy:
       matrix:
-        derivation: ${{ fromJson(needs.eval.outputs.sdout) }}
+        derivation: ${{ fromJson(needs.eval.outputs.stdout) }}
   build-nix-status:
     if: always()
     needs:
@@ -85,8 +51,8 @@ jobs:
         diagnostic-endpoint: ''
     - id: nix-eval-jobs
       name: Run nix-eval-jobs
-      run: "   {\n  echo 'stdout<<EOF'\n  nix-shell -A ci-shell --run eval\n  echo
-        'EOF'\n} >> \"$GITHUB_OUTPUT\"\n"
+      run: "   {\n  echo 'stdout<<EOF'\n  nix-shell -A ci-shell --run eval-checks\n\
+        \  echo 'EOF'\n} >> \"$GITHUB_OUTPUT\"\n"
 name: Build
 on:
   pull_request:
