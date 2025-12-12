@@ -55,7 +55,6 @@ in
     passthru = pkgs.lib.mapAttrs (name: value: pkgs.mkShell (value // { inherit name; })) {
       ci-shell = {
         packages = [
-          dotnet-sdk
           pkgs.lixPackageSets.latest.nix-eval-jobs
           pkgs.jq
         ];
