@@ -11,11 +11,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         fetch-depth: 0
     - name: Install Nix
-      uses: DeterminateSystems/nix-installer-action@v20
+      uses: DeterminateSystems/nix-installer-action@v21
       with:
         diagnostic-endpoint: ''
         github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -44,9 +44,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Install Nix
-      uses: DeterminateSystems/nix-installer-action@v20
+      uses: DeterminateSystems/nix-installer-action@v21
       with:
         diagnostic-endpoint: ''
         github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -68,7 +68,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
       with:
         token: ${{ github.token }}
     - env:
@@ -78,11 +78,11 @@ jobs:
   nuget-pack:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         fetch-depth: 0
     - name: Install Nix
-      uses: DeterminateSystems/nix-installer-action@v20
+      uses: DeterminateSystems/nix-installer-action@v21
       with:
         diagnostic-endpoint: ''
         github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -102,7 +102,7 @@ jobs:
       run: "nix-shell -A ci-shell --run 'set -o pipefail\nset -o nounset\nset -o errexit\n\
         dotnet pack --configuration Release'"
     - name: Upload NuGet artifact (plugin)
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: nuget-package
         path: src/Saturn.OpenTelemetry/bin/Release/Saturn.OpenTelemetry.*.nupkg
@@ -115,22 +115,22 @@ jobs:
       id-token: write
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         fetch-depth: 0
     - name: Install Nix
-      uses: DeterminateSystems/nix-installer-action@v20
+      uses: DeterminateSystems/nix-installer-action@v21
       with:
         diagnostic-endpoint: ''
         github-token: ${{ secrets.GITHUB_TOKEN }}
         source-url: https://install.lix.systems/lix/lix-installer-x86_64-linux
     - name: Set up cachix
-      uses: cachix/cachix-action@v15
+      uses: cachix/cachix-action@v16
       with:
         authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
         name: saturnopentelemetry
     - name: Download NuGet artifact
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v7
       with:
         name: nuget-package
         path: packed
