@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.Build.NoTargets/1.0.80"> <!-- This is not a project we want to build. -->
+<Project Sdk="Microsoft.Build.NoTargets/3.7.134"> <!-- This is not a project we want to build. -->
   <PropertyGroup>
     <IsPackable>false</IsPackable>
     <IsPublishable>false</IsPublishable>
