@@ -20,7 +20,6 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.StackExchangeRedis" Version="1.14.0-beta.1" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.EntityFrameworkCore" Version="1.14.0-beta.2" />
     <!-- Example App -->
-    <PackageVersion Include="Argu" Version="6.2.5" />
     <PackageVersion Include="Fargo.CmdLine" Version="1.7.5" />
     <PackageVersion Include="Fable.Remoting.Giraffe" Version="5.24.0" />
     <PackageVersion Include="Serilog" Version="4.3.0" />
