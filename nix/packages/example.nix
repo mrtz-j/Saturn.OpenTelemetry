@@ -19,6 +19,6 @@ buildDotnetModule {
   ];
   src = nix-gitignore.gitignoreSource [ ] ../../.;
   projectFile = "example/Example.fsproj";
-  nugetDeps = ./deps.json; # nix-build . -A default.fetch-deps && ./result nix/deps.json
+  nugetDeps = ./deps.json; # nix -Lv build .#example.fetch-deps && ./result nix/deps-example.json
   doCheck = false;
 }

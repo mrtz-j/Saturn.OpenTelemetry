@@ -6,6 +6,7 @@
   dotnet-runtime,
 }:
 rec {
+  default = saturn-opentelemetry;
   saturn-opentelemetry = pkgs.callPackage ./saturn-opentelemetry.nix {
     inherit
       pname

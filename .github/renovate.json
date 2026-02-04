@@ -13,5 +13,8 @@
       "group:all"
     ]
   },
-  "separateMajorMinor": false
+  "separateMajorMinor": false,
+  "nix": {
+    "enabled": true
+  }
 }

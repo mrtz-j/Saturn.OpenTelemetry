@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageDownload Include="G-Research.FSharp.Analyzers" Version="[0.20.0]" />
+    <PackageDownload Include="G-Research.FSharp.Analyzers" Version="[0.21.0]" />
     <PackageDownload Include="Ionide.Analyzers" Version="[0.14.10]" />
   </ItemGroup>
 </Project>
