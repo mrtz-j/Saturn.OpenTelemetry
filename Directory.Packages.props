@@ -4,10 +4,10 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Common -->
-    <PackageVersion Include="FSharp.Core" Version="10.0.102" />
+    <PackageVersion Include="FSharp.Core" Version="10.0.103" />
     <PackageVersion Include="Saturn" Version="0.17.0" />
-    <PackageVersion Include="System.Text.Json" Version="10.0.2" />
-    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="8.15.0" />
+    <PackageVersion Include="System.Text.Json" Version="10.0.3" />
+    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="8.16.0" />
     <!-- Saturn.OpenTelemetry -->
     <PackageVersion Include="OpenFga.Sdk" Version="0.9.1"/>
     <PackageVersion Include="OpenTelemetry" Version="1.15.0" />
@@ -23,7 +23,7 @@
     <PackageVersion Include="Argu" Version="6.2.5" />
     <PackageVersion Include="Fargo.CmdLine" Version="1.7.5" />
     <PackageVersion Include="Fable.Remoting.Giraffe" Version="5.24.0" />
-    <PackageVersion Include="Serilog" Version="4.3.0" />
+    <PackageVersion Include="Serilog" Version="4.3.1" />
     <PackageVersion Include="Serilog.AspNetCore" Version="10.0.0" />
     <PackageVersion Include="Serilog.Expressions" Version="5.0.0" />
     <PackageVersion Include="Serilog.Sinks.OpenTelemetry" Version="4.2.0" />
