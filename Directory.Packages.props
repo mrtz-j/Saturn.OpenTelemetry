@@ -4,16 +4,16 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Common -->
-    <PackageVersion Include="FSharp.Core" Version="10.0.103" />
+    <PackageVersion Include="FSharp.Core" Version="10.1.201" />
     <PackageVersion Include="Saturn" Version="0.17.0" />
-    <PackageVersion Include="System.Text.Json" Version="10.0.3" />
-    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="8.16.0" />
+    <PackageVersion Include="System.Text.Json" Version="10.0.5" />
+    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="8.17.0" />
     <!-- Saturn.OpenTelemetry -->
-    <PackageVersion Include="OpenFga.Sdk" Version="0.9.1"/>
-    <PackageVersion Include="OpenTelemetry" Version="1.15.0" />
-    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.15.0" />
-    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.15.0" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.15.0" />
+    <PackageVersion Include="OpenFga.Sdk" Version="0.10.0"/>
+    <PackageVersion Include="OpenTelemetry" Version="1.15.1" />
+    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.15.1" />
+    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.15.1" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.15.1" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.15.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.15.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Process" Version="1.14.0-beta.2" />
@@ -29,7 +29,7 @@
     <PackageVersion Include="Serilog.Sinks.OpenTelemetry" Version="4.2.0" />
     <!-- Analyzers -->
     <PackageVersion Include="FSharp.Analyzers.Build" Version="0.5.0" />
-    <PackageVersion Include="G-Research.FSharp.Analyzers" Version="0.21.0" />
-    <PackageVersion Include="Ionide.Analyzers" Version="0.14.11" />
+    <PackageVersion Include="G-Research.FSharp.Analyzers" Version="0.22.0" />
+    <PackageVersion Include="Ionide.Analyzers" Version="0.15.0" />
   </ItemGroup>
 </Project>
