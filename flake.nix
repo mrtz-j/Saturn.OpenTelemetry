@@ -40,6 +40,7 @@
             check.enable = true;
             settings = {
               src = pkgs.nix-gitignore.gitignoreSource [ ] ./.;
+              package = pkgs.prek;
               # Do not run at pre-commit time
               default_stages = [
                 "pre-push"
