@@ -7,7 +7,7 @@
     <PackageVersion Include="FSharp.Core" Version="10.1.203" />
     <PackageVersion Include="Saturn" Version="0.17.0" />
     <PackageVersion Include="System.Text.Json" Version="10.0.7" />
-    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="8.17.0" />
+    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="8.18.0" />
     <!-- Saturn.OpenTelemetry -->
     <PackageVersion Include="OpenFga.Sdk" Version="0.10.0"/>
     <PackageVersion Include="OpenTelemetry" Version="1.15.3" />
