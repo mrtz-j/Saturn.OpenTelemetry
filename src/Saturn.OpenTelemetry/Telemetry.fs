@@ -121,8 +121,10 @@ module Span =
         List.iter (fun (name, value: obj) -> span.SetTag(name, value) |> ignore<T>) tags
 
     let addEvent (name: string) (tags: Metadata) (span: T) : unit =
-        let e = span.AddEvent(ActivityEvent name)
-        List.iter (fun (name, value: obj) -> e.SetTag(name, value) |> ignore<T>) tags
+        let tagCollection = ActivityTagsCollection()
+        List.iter (fun (k, v) -> tagCollection[k] <- v) tags
+        span.AddEvent(ActivityEvent(name, DateTimeOffset.Now, tagCollection))
+        |> ignore<T>
 
 /// <summary>
 /// Creates a new child span from the current span.
@@ -201,11 +203,10 @@ let serviceTags: Metadata =
         "meta.process.pid", string Environment.ProcessId
         "meta.process.starttime",
         Process.GetCurrentProcess().StartTime.ToUniversalTime().ToString("u")
-        "meta.process.command_line", string Environment.CommandLine
         "meta.dotnet.framework.version",
         string System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription
     ]
-    // NOTE: Is this typecast necessary?
+    // Metadata is (string * obj) list; the literal infers (string * string) list, so upcast is required.
     List.map (fun (k, v) -> (k, v :> obj)) tags
 
 let addServiceTags (span: Span.T) : unit = Span.addTags serviceTags span
@@ -237,13 +238,6 @@ let init (serviceName: string) : unit =
 
     // NOTE: Ensure there is always a root span
     Span.root $"Starting %s{serviceName}" |> ignore<Span.T>
-
-let mutable tracerProvider: TracerProvider = null
-
-/// Flush all Telemetry. Used on shutdown/Exit.
-let flush () : unit =
-    if not (isNull tracerProvider) then
-        tracerProvider.ForceFlush() |> ignore<bool>
 
 /// Exclude /health, /metrics and /swagger requests from Server
 let requestFilter (ctx: HttpContext) : bool =

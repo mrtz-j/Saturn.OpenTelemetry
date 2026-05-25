@@ -8,6 +8,8 @@ Includes a small `Telemetry` wrapper for the dotnet `ActivitySource`, to make it
 
 - [About](#about)
 - [Getting Started](#getting-started)
+- [Telemetry API](#telemetry-api)
+- [Optional Instrumentation](#optional-instrumentation)
 - [LGTM-Stack](#lgtm-stack-locally)
 - [License](#license)
 
@@ -61,9 +63,58 @@ let app = application {
 // Start the application and Initialize OpenTelemetry
 [<EntryPoint>]
 let main _ =
+    // Telemetry.init sets up the ActivitySource used for manual span creation.
+    // use_otel (above) registers the OTEL SDK pipeline in ASP.NET Core's DI container.
+    // Both are required: init for the Telemetry module, use_otel for automatic HTTP instrumentation.
     Telemetry.init otelConfig.AppId
     run app
     0
+```
+
+## Telemetry API
+
+The `Telemetry` module provides manual span creation and tagging on top of the automatic HTTP instrumentation:
+
+```fsharp
+// Create a child span of the current span (most common usage).
+// Use `use` so the span stops when it goes out of scope.
+use _span = Telemetry.child "operationName" ["tag", "value" :> obj]
+
+// Create a root span (e.g. for background jobs not started by an HTTP request).
+use _span = Telemetry.createRoot "jobName"
+
+// Add tags and events to the current span
+Telemetry.addTag "user.id" userId
+Telemetry.addTags ["db.rows_affected", rowCount :> obj; "db.table", "orders" :> obj]
+Telemetry.addEvent "cache.miss" ["key", cacheKey :> obj]
+
+// Record an exception on the current span
+try
+    doSomething ()
+with e ->
+    Telemetry.addException "something failed" e
+    reraise ()
+```
+
+## Optional Instrumentation
+
+Additional instrumentation can be enabled in the `configure_otel` block. Each requires the corresponding NuGet package:
+
+| Operation | NuGet package |
+|---|---|
+| `use_redis` | `OpenTelemetry.Instrumentation.StackExchangeRedis` |
+| `use_efcore` | `OpenTelemetry.Instrumentation.EntityFrameworkCore` |
+| `use_openfga` | `OpenFga.Sdk` |
+
+```fsharp
+use_otel (
+    configure_otel {
+        settings otelConfig
+        use_redis
+        use_efcore
+        use_openfga
+    }
+)
 ```
 
 ## LGTM stack locally

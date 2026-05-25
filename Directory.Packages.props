@@ -27,6 +27,8 @@
     <PackageVersion Include="Serilog.AspNetCore" Version="10.0.0" />
     <PackageVersion Include="Serilog.Expressions" Version="5.0.0" />
     <PackageVersion Include="Serilog.Sinks.OpenTelemetry" Version="4.2.0" />
+    <!-- Changelog -->
+    <PackageVersion Include="Ionide.KeepAChangelog.Tasks" Version="0.1.4" />
     <!-- Analyzers -->
     <PackageVersion Include="FSharp.Analyzers.Build" Version="0.5.0" />
     <PackageVersion Include="G-Research.FSharp.Analyzers" Version="0.22.0" />

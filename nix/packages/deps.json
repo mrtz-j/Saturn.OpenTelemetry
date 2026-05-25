@@ -6,8 +6,18 @@
   },
   {
     "pname": "Fable.Remoting.Giraffe",
+    "version": "5.24.0",
+    "hash": "sha256-AzI3ocr5CFSdzNuNkoydNiFP7REHC7HhkABS1fpYC8Q="
+  },
+  {
+    "pname": "Fable.Remoting.Giraffe",
     "version": "6.1.0",
     "hash": "sha256-N7eaYpjUtdJkhGrw9cK3WSVOFU55vGXmUg8Z05CgVDA="
+  },
+  {
+    "pname": "Fable.Remoting.Json",
+    "version": "2.25.0",
+    "hash": "sha256-Q8v2kBhHRFRKf+Czd5SVNzAI3Jo+O/FsLq5fhNdJK6g="
   },
   {
     "pname": "Fable.Remoting.Json",
@@ -16,8 +26,18 @@
   },
   {
     "pname": "Fable.Remoting.MsgPack",
+    "version": "1.25.0",
+    "hash": "sha256-VfO/G6IfVDmBuwu+wYecCuoSJpbdOo96N3qAUEvKZTk="
+  },
+  {
+    "pname": "Fable.Remoting.MsgPack",
     "version": "2.0.0",
     "hash": "sha256-5TFrNFlc0kBEd2U3VgKi6a4FXt9B7MCK+OnlV9rWEmg="
+  },
+  {
+    "pname": "Fable.Remoting.Server",
+    "version": "5.42.0",
+    "hash": "sha256-hV9xURmVyNZIpQf1q1Q3iAIBgHHeKxGJ5S6pC3ifpqU="
   },
   {
     "pname": "Fable.Remoting.Server",
@@ -66,6 +86,11 @@
   },
   {
     "pname": "Giraffe",
+    "version": "5.0.0",
+    "hash": "sha256-kPjtuOwPw9vR1OXePH6RwWxNuK3NkSoe+n7uIINguC0="
+  },
+  {
+    "pname": "Giraffe",
     "version": "6.4.0",
     "hash": "sha256-S7xcUmXecYmZB8n00PlHKZp7dz6uEyEXUFHn7f002L8="
   },
@@ -73,6 +98,11 @@
     "pname": "Giraffe",
     "version": "8.2.0",
     "hash": "sha256-23o7068DVhJAPpPjQjh0jt0qrh7jGndhHX0xFyIXsvg="
+  },
+  {
+    "pname": "Giraffe.ViewEngine",
+    "version": "1.3.0",
+    "hash": "sha256-kx2iKQ0H56Qn+BE5weZ6y3BwnYujOacsORxlfOvPPl8="
   },
   {
     "pname": "Giraffe.ViewEngine",
@@ -100,9 +130,19 @@
     "hash": "sha256-6SuGfGOa9aKbEsPvBQc/HdoHMeQIP0AndjxK5PCp7WU="
   },
   {
+    "pname": "Ionide.KeepAChangelog.Tasks",
+    "version": "0.1.4",
+    "hash": "sha256-G832mxBQSidmeYvqqY+zMO00aMyEUIOZ7efWvzB3CAw="
+  },
+  {
     "pname": "Microsoft.AspNetCore.App.Ref",
-    "version": "10.0.6",
-    "hash": "sha256-f4bbxzyXrxOJKR+SiNmg6dho54h1B8HVM/8Qol7BFsE="
+    "version": "10.0.2",
+    "hash": "sha256-BR5zIy3mcmO8ZH1OOxZxHuaSG7Wk022hAdhX0R0MrVA="
+  },
+  {
+    "pname": "Microsoft.AspNetCore.App.Ref",
+    "version": "10.0.8",
+    "hash": "sha256-Xxa2Ar2Qz9ToGM4CDUJqHS7JhcsCL+2TJvg/mNu81Ps="
   },
   {
     "pname": "Microsoft.AspNetCore.Authentication.JwtBearer",
@@ -113,6 +153,11 @@
     "pname": "Microsoft.AspNetCore.WebUtilities",
     "version": "2.3.0",
     "hash": "sha256-oJMEP44Q9ClhbyZUPtSb9jqQyJJ/dD4DHElRvkYpIOo="
+  },
+  {
+    "pname": "Microsoft.Bcl.AsyncInterfaces",
+    "version": "10.0.1",
+    "hash": "sha256-aHoslRGmAot/z1GCCqSzjAxT/hltxOOIZ1/oti4WbGY="
   },
   {
     "pname": "Microsoft.Bcl.AsyncInterfaces",
@@ -211,13 +256,23 @@
   },
   {
     "pname": "Microsoft.IdentityModel.Abstractions",
-    "version": "8.17.0",
-    "hash": "sha256-AU+EMOZArc3rTdsnKYzAufFAtspuYQM3XYi8/VsQAio="
+    "version": "8.15.0",
+    "hash": "sha256-LKTvERNUTMCEF7xs377tCMwOMRki93OS4kh6Yv0uXJ4="
+  },
+  {
+    "pname": "Microsoft.IdentityModel.Abstractions",
+    "version": "8.18.0",
+    "hash": "sha256-mkguJA4aXIVVQvSJ9Duq9mivbGXAIkLQp3a8PKy223A="
   },
   {
     "pname": "Microsoft.IdentityModel.JsonWebTokens",
-    "version": "8.17.0",
-    "hash": "sha256-MH7vdhCNAae32p6UTvaDtmyvFDxa/W71qTsEQ6yC9xM="
+    "version": "8.15.0",
+    "hash": "sha256-LwzKiGjcnORvmQ9tim6lomXpfVlPpd/fE8FKTFWKlpM="
+  },
+  {
+    "pname": "Microsoft.IdentityModel.JsonWebTokens",
+    "version": "8.18.0",
+    "hash": "sha256-MdqY9CGRs+fTLb3HYYcSfuzqDFo4Dpho4McFWWferjA="
   },
   {
     "pname": "Microsoft.IdentityModel.Logging",
@@ -226,8 +281,13 @@
   },
   {
     "pname": "Microsoft.IdentityModel.Logging",
-    "version": "8.17.0",
-    "hash": "sha256-IM6jsPMz+l9JA0cye/v2ke51xlfP0u5HtWBqc2aKDYM="
+    "version": "8.15.0",
+    "hash": "sha256-mMXwsjGcrrmHR1mG7BLTKg/30mX+m93QVX17/ynOOd4="
+  },
+  {
+    "pname": "Microsoft.IdentityModel.Logging",
+    "version": "8.18.0",
+    "hash": "sha256-09WyYskyL8gjjVDzoZBQAGXgsPmyagWftALSBCdt4gg="
   },
   {
     "pname": "Microsoft.IdentityModel.Protocols",
@@ -246,13 +306,23 @@
   },
   {
     "pname": "Microsoft.IdentityModel.Tokens",
-    "version": "8.17.0",
-    "hash": "sha256-XcA0KXJbqMWt0I5LuHHMRLpgVQ18KcBej1BoySHeA1A="
+    "version": "8.15.0",
+    "hash": "sha256-7Lo/TsvqgNCEMyFssO3Om233521Pqgb9K9lUeHc5HMk="
+  },
+  {
+    "pname": "Microsoft.IdentityModel.Tokens",
+    "version": "8.18.0",
+    "hash": "sha256-sFhonZW9G6H4ooQ6N/78fkZvADZ2Hf5WAS3FKd/ue1E="
   },
   {
     "pname": "Microsoft.IO.RecyclableMemoryStream",
     "version": "1.2.2",
     "hash": "sha256-BmMXCZAjfRo/KxzVBHMNQo4e5uccggB6zAKKc+I1UHE="
+  },
+  {
+    "pname": "Microsoft.IO.RecyclableMemoryStream",
+    "version": "1.3.6",
+    "hash": "sha256-6JY6qTdE26omWtqEmPRPQ4QC68b7QDBofivRDdaOEzI="
   },
   {
     "pname": "Microsoft.IO.RecyclableMemoryStream",
@@ -271,13 +341,28 @@
   },
   {
     "pname": "Microsoft.NETCore.App.Host.linux-x64",
-    "version": "10.0.6",
-    "hash": "sha256-Vu13VzAM3kpaxsrTJWnASg7DbhfS+JvxC/Hdiaur4do="
+    "version": "10.0.2",
+    "hash": "sha256-XlpmnmQbjbP9e/faTnny3jAgIk19t2AfbSrZg8hEogc="
+  },
+  {
+    "pname": "Microsoft.NETCore.App.Host.linux-x64",
+    "version": "10.0.8",
+    "hash": "sha256-8BigvaRk5cakvLH3wl28SSGbxJXD4ReiDMpxMbOsrmA="
   },
   {
     "pname": "Microsoft.NETCore.App.Ref",
-    "version": "10.0.6",
-    "hash": "sha256-24P6aVYdqv2f+nHaPXDExbvTRFoX6jhLPn5oXIWRACk="
+    "version": "10.0.2",
+    "hash": "sha256-WqzLfhzdjoRf9mBIcloCsHz3Gw2Kq98IMwSTliE6tHM="
+  },
+  {
+    "pname": "Microsoft.NETCore.App.Ref",
+    "version": "10.0.8",
+    "hash": "sha256-7LJeykNO3WlcPTBhbitMDzxeupmqjJvNEKzzsUHhQtk="
+  },
+  {
+    "pname": "Newtonsoft.Json",
+    "version": "12.0.3",
+    "hash": "sha256-PSHK+Qn52ytdEySdZyjCUGxV5y4hI/vir2WgVsCgv50="
   },
   {
     "pname": "Newtonsoft.Json",
@@ -295,6 +380,16 @@
     "hash": "sha256-9puux4YGnL0Gi6sAehICP5Ym77mtFf4vA9JxM9g55XM="
   },
   {
+    "pname": "OpenFga.Sdk",
+    "version": "0.9.1",
+    "hash": "sha256-jdm3lUfYc+H2mJQdHkcCZOosJKAeIUcgky8tVKbB1H0="
+  },
+  {
+    "pname": "OpenTelemetry",
+    "version": "1.15.0",
+    "hash": "sha256-L/CK3hlDc4+G16XZbV9y3iqV2ckIOiQQr1k4inWRtVQ="
+  },
+  {
     "pname": "OpenTelemetry",
     "version": "1.15.3",
     "hash": "sha256-zOrEPW8noHfUINJtIWQYMTls2JLRUYm7aoyffjrMBLU="
@@ -303,6 +398,11 @@
     "pname": "OpenTelemetry.Api",
     "version": "1.14.0",
     "hash": "sha256-Dn8gWzYyFQuNjP1m6YJzSrPetF+G+R+zVFEJevFSv+c="
+  },
+  {
+    "pname": "OpenTelemetry.Api",
+    "version": "1.15.0",
+    "hash": "sha256-CwzaQ4MKSdJ1q6qNzPXKRKNEvOLy5N9DDHu+TWqRYkU="
   },
   {
     "pname": "OpenTelemetry.Api",
@@ -316,8 +416,18 @@
   },
   {
     "pname": "OpenTelemetry.Api.ProviderBuilderExtensions",
+    "version": "1.15.0",
+    "hash": "sha256-nYCg/lvC5Z7nmjWl1ikZALBvuYbDTN/6eqvANwjiHjI="
+  },
+  {
+    "pname": "OpenTelemetry.Api.ProviderBuilderExtensions",
     "version": "1.15.3",
     "hash": "sha256-Z4x0eA1dkCOJS5xYZ6ogMOk6H+ivvXuVj1mORyWMOSo="
+  },
+  {
+    "pname": "OpenTelemetry.Exporter.OpenTelemetryProtocol",
+    "version": "1.15.0",
+    "hash": "sha256-qWp8S7b4uQthah3M3ZQ3zJwqgArIQrd+PV8OesQ55v8="
   },
   {
     "pname": "OpenTelemetry.Exporter.OpenTelemetryProtocol",
@@ -326,8 +436,18 @@
   },
   {
     "pname": "OpenTelemetry.Extensions.Hosting",
+    "version": "1.15.0",
+    "hash": "sha256-4Y/qP5ao56w5T6B93CVQ+9ktuPYfeMg20BTRHe7q1L4="
+  },
+  {
+    "pname": "OpenTelemetry.Extensions.Hosting",
     "version": "1.15.3",
     "hash": "sha256-5Z5/80xNttniodCF71s9cGXvDCkIc8Qdvpr969K5G0c="
+  },
+  {
+    "pname": "OpenTelemetry.Instrumentation.AspNetCore",
+    "version": "1.15.0",
+    "hash": "sha256-mjjHxz5Dzo1ybzfkH2FYnVtAjVTuMaIZ9ZhmPPmjcSI="
   },
   {
     "pname": "OpenTelemetry.Instrumentation.AspNetCore",
@@ -341,6 +461,11 @@
   },
   {
     "pname": "OpenTelemetry.Instrumentation.Http",
+    "version": "1.15.0",
+    "hash": "sha256-0qhyaFFqkscIJ5VN2Ya8rPGOrui40G//pG3cQJflsmg="
+  },
+  {
+    "pname": "OpenTelemetry.Instrumentation.Http",
     "version": "1.15.1",
     "hash": "sha256-VG3zmUmFcN+mk7BkIcss1RjkcrVWrQMn8AUDTM4wpus="
   },
@@ -348,6 +473,11 @@
     "pname": "OpenTelemetry.Instrumentation.Process",
     "version": "1.14.0-beta.2",
     "hash": "sha256-U2YPDPx+aknuoStqtsShC+V3+4PPLBh1bZwXApNxsxg="
+  },
+  {
+    "pname": "OpenTelemetry.Instrumentation.Runtime",
+    "version": "1.15.0",
+    "hash": "sha256-thtGamTazhUbxMP//ztbvLfAcNy3dtdtUStVkycW4Io="
   },
   {
     "pname": "OpenTelemetry.Instrumentation.Runtime",
@@ -365,9 +495,19 @@
     "hash": "sha256-4wKlgwM14Ik6WyB/MBDPKhfx9GHeZD2R20OLyRz2sF0="
   },
   {
+    "pname": "Ply",
+    "version": "0.3.1",
+    "hash": "sha256-RpLtDGUggvo7cSKOgzJ6WzU+KBueGPkRorvLMnRxFu0="
+  },
+  {
     "pname": "Saturn",
     "version": "0.17.0",
     "hash": "sha256-EqrpCpshucb94aFqNnSWT4sD6kdF9DQJkOLvgpz2pAY="
+  },
+  {
+    "pname": "Serilog",
+    "version": "4.3.0",
+    "hash": "sha256-jyIy4BjsyFXge3aO4GRFAdnX4/rz1MHfBkBDIpCDsTw="
   },
   {
     "pname": "Serilog",
@@ -441,8 +581,13 @@
   },
   {
     "pname": "System.IdentityModel.Tokens.Jwt",
-    "version": "8.17.0",
-    "hash": "sha256-DmAmWVosgwWlKGJm/0wFVbeV19YD2rT+gp8utjY0n0Q="
+    "version": "8.15.0",
+    "hash": "sha256-5O0wbGp0gWnukK+0mWBjMnP1bZc6N0xuNcO2qmFiUX8="
+  },
+  {
+    "pname": "System.IdentityModel.Tokens.Jwt",
+    "version": "8.18.0",
+    "hash": "sha256-90vrFrRi93g0HuPsUpjt/Aa01l8Jpi1z9hgMB3wIaxs="
   },
   {
     "pname": "System.IO.Pipelines",
@@ -461,7 +606,17 @@
   },
   {
     "pname": "System.Text.Json",
+    "version": "10.0.2",
+    "hash": "sha256-Gf6L3mxsdvmN8gDyoUhfZDSFWKpmn9UjJ2v/p1CDFmk="
+  },
+  {
+    "pname": "System.Text.Json",
     "version": "10.0.7",
     "hash": "sha256-QBcrNSbTpvMuNEYYCSP9E+i1CXbglJKpS9kVgeDlIsQ="
+  },
+  {
+    "pname": "Utf8Json",
+    "version": "1.3.7",
+    "hash": "sha256-DEXuALVbHiJkHHQTxPtZbLz135Mx5os36xFLI0jJcFs="
   }
 ]

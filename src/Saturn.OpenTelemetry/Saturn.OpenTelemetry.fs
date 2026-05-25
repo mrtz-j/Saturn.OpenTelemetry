@@ -132,15 +132,6 @@ module OpenTelemetry =
                                 opt.RecordException <- true
                             )
                             .AddSource(config.OtelConfig.AppId)
-                            .SetResourceBuilder(
-                                ResourceBuilder
-                                    .CreateDefault()
-                                    .AddService(
-                                        config.OtelConfig.AppId,
-                                        config.OtelConfig.Namespace,
-                                        config.OtelConfig.Version
-                                    )
-                            )
                             .AddOtlpExporter(fun opt ->
                                 opt.Endpoint <- new Uri(config.OtelConfig.Endpoint)
                             )
@@ -160,15 +151,6 @@ module OpenTelemetry =
                     )
                     .WithMetrics(fun met ->
                         met
-                            .SetResourceBuilder(
-                                ResourceBuilder
-                                    .CreateDefault()
-                                    .AddService(
-                                        config.OtelConfig.AppId,
-                                        config.OtelConfig.Namespace,
-                                        config.OtelConfig.Version
-                                    )
-                            )
                             .AddMeter("System.Runtime")
                             .AddAspNetCoreInstrumentation()
                             .AddHttpClientInstrumentation()

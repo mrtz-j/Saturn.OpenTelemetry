@@ -14,7 +14,10 @@
   outputs =
     inputs:
     inputs.parts.lib.mkFlake { inherit inputs; } {
-      systems = [ "x86_64-linux" ];
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
       imports = [
         inputs.pre-commit-hooks.flakeModule
       ];
@@ -92,6 +95,7 @@
             ];
 
             DOTNET_ROOT = "${dotnet-sdk.unwrapped}/share/dotnet";
+            SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
 
             shellHook = ''
               ${config.pre-commit.installationScript}
