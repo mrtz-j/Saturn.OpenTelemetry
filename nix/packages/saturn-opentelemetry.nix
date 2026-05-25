@@ -18,5 +18,5 @@ buildDotnetModule {
   projectFile = "src/Saturn.OpenTelemetry/Saturn.OpenTelemetry.fsproj";
   nugetDeps = ./deps.json; # nix -Lv build .#default.fetch-deps && ./result nix/deps.json
   doCheck = false;
-  nupkg = true;
+  packNupkg = true;
 }
