@@ -59,6 +59,7 @@
         {
           pre-commit-check = pre-commit-hooks.lib.${system}.run {
             src = pkgs.nix-gitignore.gitignoreSource [ ] ./.;
+            package = pkgs.prek;
             hooks = {
               deadnix.enable = true;
               nixfmt.enable = true;
