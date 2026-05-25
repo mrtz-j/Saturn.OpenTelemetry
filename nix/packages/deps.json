@@ -105,11 +105,6 @@
     "hash": "sha256-G832mxBQSidmeYvqqY+zMO00aMyEUIOZ7efWvzB3CAw="
   },
   {
-    "pname": "Microsoft.AspNetCore.App.Ref",
-    "version": "10.0.8",
-    "hash": "sha256-Xxa2Ar2Qz9ToGM4CDUJqHS7JhcsCL+2TJvg/mNu81Ps="
-  },
-  {
     "pname": "Microsoft.AspNetCore.Authentication.JwtBearer",
     "version": "6.0.3",
     "hash": "sha256-gl9HqCnquMyBq1j+DxdKwvhQFexbzl3pFpmb/CM4FX8="
@@ -273,16 +268,6 @@
     "pname": "Microsoft.Net.Http.Headers",
     "version": "2.3.0",
     "hash": "sha256-XY3OyhKTzUVbmMnegp0IxApg8cw97RD9eXC2XenrOqE="
-  },
-  {
-    "pname": "Microsoft.NETCore.App.Host.linux-x64",
-    "version": "10.0.8",
-    "hash": "sha256-8BigvaRk5cakvLH3wl28SSGbxJXD4ReiDMpxMbOsrmA="
-  },
-  {
-    "pname": "Microsoft.NETCore.App.Ref",
-    "version": "10.0.8",
-    "hash": "sha256-7LJeykNO3WlcPTBhbitMDzxeupmqjJvNEKzzsUHhQtk="
   },
   {
     "pname": "Newtonsoft.Json",
