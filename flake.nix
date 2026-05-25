@@ -21,7 +21,7 @@
       forEachSystem = nixpkgs.lib.genAttrs systems;
 
       pname = "SaturnOpenTelemetry";
-      version = "0.6.0-alpha";
+      version = "0.7.0-beta";
 
       mkPackages =
         system:
