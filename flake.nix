@@ -118,9 +118,9 @@
               NUGET_AUTH_TOKEN=$(age --decrypt -i "$GARNIX_ACTION_PRIVATE_KEY_FILE" ${./secrets/nuget-auth-token.age})
               NUGET_API_KEY=$(age --decrypt -i "$GARNIX_ACTION_PRIVATE_KEY_FILE" ${./secrets/nuget-api-key.age})
 
-              NUPKG=$(find ${packages.saturn-opentelemetry} -name "*.nupkg" | head -1)
+              NUPKG=$(find "${packages.saturn-opentelemetry}/share/nuget/source" -name "*.nupkg" | head -1)
               if [ -z "$NUPKG" ]; then
-                echo "No .nupkg found in ${packages.saturn-opentelemetry}"
+                echo "No .nupkg found in ${packages.saturn-opentelemetry}/share/nuget/source"
                 exit 1
               fi
               echo "Publishing $NUPKG"
