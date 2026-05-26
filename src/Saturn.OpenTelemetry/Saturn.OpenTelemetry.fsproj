@@ -11,7 +11,6 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/mrtz-j/Saturn.OpenTelemetry</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>fsharp;opentelemetry;</PackageTags>
     <PackageId>Saturn.OpenTelemetry</PackageId>
     <IsPackable>true</IsPackable>
@@ -20,10 +19,6 @@
   <ItemGroup>
     <Compile Include="Telemetry.fs" />
     <Compile Include="Saturn.OpenTelemetry.fs" />
-    <None Include="../../README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="OpenFga.Sdk" />
