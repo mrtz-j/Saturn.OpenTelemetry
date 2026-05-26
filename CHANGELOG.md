@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
-## [0.7.0-beta] - 2026-05-25
+## [0.7.0] - 2026-05-25
 
 ### Fixed
 - `Span.addEvent` now correctly passes tags to the event; previously tags were silently dropped because `ActivityEvent` is immutable
