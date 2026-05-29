@@ -1,0 +1,27 @@
+name: "Publish NuGet package"
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  FORCE_COLOR: 1
+
+jobs:
+  publish:
+    name: Publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: samueldr/lix-gha-installer-action@v2025-10-27
+      - uses: DeterminateSystems/magic-nix-cache-action@v13
+        with:
+          diagnostic-endpoint: ""
+      - name: Build nuget-publish app
+        run: nix-build -A apps.nuget-publish
+      - name: Publish NuGet package
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.NUGET_AUTH_TOKEN }}
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+        run: ./result/bin/nuget-publish

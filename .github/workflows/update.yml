@@ -1,0 +1,35 @@
+name: "Update Nix dependencies"
+
+on:
+  schedule:
+    # 04:04 on the 3rd of every month — avoids common scheduled-job spikes
+    - cron: "4 4 3 * *"
+  workflow_dispatch:
+
+env:
+  FORCE_COLOR: 1
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v6
+      - uses: samueldr/lix-gha-installer-action@v2025-10-27
+      - name: Update npins pins
+        run: nix-shell -p npins --run "npins update"
+      - name: Open pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: npins-update
+          delete-branch: true
+          commit-message: "update: bump npins pins"
+          title: "update: bump npins pins"
+          body: |
+            Automated update of `npins/sources.json` via `npins update`.
+          labels: |
+            npins
+            bot
