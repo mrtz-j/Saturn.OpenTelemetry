@@ -4,34 +4,34 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Common -->
-    <PackageVersion Include="FSharp.Core" Version="10.1.203" />
+    <PackageVersion Include="FSharp.Core" Version="10.1.401" />
     <PackageVersion Include="Saturn" Version="0.17.0" />
-    <PackageVersion Include="System.Text.Json" Version="10.0.7" />
-    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="8.18.0" />
+    <PackageVersion Include="System.Text.Json" Version="10.0.12" />
+    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="8.22.0" />
     <!-- Saturn.OpenTelemetry -->
-    <PackageVersion Include="OpenFga.Sdk" Version="0.10.0"/>
-    <PackageVersion Include="OpenTelemetry" Version="1.15.3" />
-    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.15.3" />
-    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.15.3" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.15.2" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.15.1" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.15.1" />
+    <PackageVersion Include="OpenFga.Sdk" Version="0.10.4"/>
+    <PackageVersion Include="OpenTelemetry" Version="1.18.0" />
+    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.18.0" />
+    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.18.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.18.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.18.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.18.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Process" Version="1.14.0-beta.2" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.StackExchangeRedis" Version="1.14.0-beta.1" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.EntityFrameworkCore" Version="1.14.0-beta.2" />
     <!-- Example App -->
     <PackageVersion Include="Argu" Version="6.2.5" />
-    <PackageVersion Include="Fargo.CmdLine" Version="1.7.5" />
+    <PackageVersion Include="Fargo.CmdLine" Version="1.9.4" />
     <PackageVersion Include="Fable.Remoting.Giraffe" Version="6.1.0" />
-    <PackageVersion Include="Serilog" Version="4.3.1" />
+    <PackageVersion Include="Serilog" Version="4.4.0" />
     <PackageVersion Include="Serilog.AspNetCore" Version="10.0.0" />
     <PackageVersion Include="Serilog.Expressions" Version="5.0.0" />
     <PackageVersion Include="Serilog.Sinks.OpenTelemetry" Version="4.2.0" />
     <!-- Changelog -->
-    <PackageVersion Include="Ionide.KeepAChangelog.Tasks" Version="0.1.4" />
+    <PackageVersion Include="Ionide.KeepAChangelog.Tasks" Version="0.3.3" />
     <!-- Analyzers -->
     <PackageVersion Include="FSharp.Analyzers.Build" Version="0.5.0" />
-    <PackageVersion Include="G-Research.FSharp.Analyzers" Version="0.22.0" />
-    <PackageVersion Include="Ionide.Analyzers" Version="0.15.0" />
+    <PackageVersion Include="G-Research.FSharp.Analyzers" Version="0.24.0" />
+    <PackageVersion Include="Ionide.Analyzers" Version="0.18.0" />
   </ItemGroup>
 </Project>
