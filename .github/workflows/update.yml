@@ -16,12 +16,12 @@ jobs:
       contents: write
       pull-requests: write
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: samueldr/lix-gha-installer-action@v2025-10-27
       - name: Update npins pins
         run: nix-shell -p npins --run "npins update"
       - name: Open pull request
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: npins-update
